@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+    <!-- {% load static %}
+    <img src="/media/{{post.body.name }}" alt="body image"> -->
+
+    <h2>{{profile.user}}'s artworks</h2>
+    <!-- {% if posts %} -->
+    {% for post in posts %}
+        <h4><small>{{ post.created_on|timesince}} ago</small></h4>
+        <a href="{% url 'post_detail' post.pk%}"> <img src="/media/{{post.body.name }}" alt="body image"></a>
+    {% endfor %}
+    <!-- {% else %}
+        <h4> there are no replys yet. draw one</h4>
+    {% endif %} -->
+
+
+{% endblock page_content %}
