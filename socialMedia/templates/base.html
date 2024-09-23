@@ -9,7 +9,20 @@
     <link rel="stylesheet" href="{% static 'simple.min.css' %}">
 </head>
 <body>
-    <a href="{% url 'home'%}"><h1>social media site </h1></a>
+    <ul style="list-style-type: none;margin: 0;padding: 0;">
+        <li style="display: inline;"><a href="{% url 'home'%}">Home</a></li>
+        <li style="display: inline;"><a href="{% url 'create_post'%}">Create Post</a></li>
+        <li style="display: inline;"><a href="{% url 'profile_detail' user.pk %}">Account</a></li>
+
+        <div style="float:right;">
+        <li style="display: inline;"><a href="{% url 'profile_detail' user.pk %}">Sign Up</a></li>
+        <li style="display: inline;"><a href="{% url 'profile_detail' user.pk %}">Log In</a></li>
+        </div>
+
+        {% comment %} <li style="display: inline;"><a href="{% url 'home'%}">About</a></li> {% endcomment %}
+      </ul>
+
+    {% comment %} <a href="{% url 'home'%}"><h1>social media site </h1></a> {% endcomment %}
 
 {% block page_content %}{% endblock page_content %}
 </body>

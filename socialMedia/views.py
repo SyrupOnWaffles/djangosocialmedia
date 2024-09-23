@@ -57,11 +57,22 @@ def post_homepage(request):
     return render(request, "homepage.html", context)
 
 # Create your views here.
-def paint(request):
-    # post = Post.objects.get(pk=pk)
-    # replys = Reply.objects.filter(post=post)
-    # context = {
-    #     "post": post,
-    #     "replys": replys,
-    # }
-    return render(request, "paint.html")
+def create_post(request):
+    form = CanvasForm()
+    if request.method == "POST":
+        form = CanvasForm(request.POST)
+        if form.is_valid():
+            name = ''.join(random.choices(string.ascii_uppercase + string.digits + string.ascii_lowercase, k=64))
+            response = urllib.request.urlopen(form.cleaned_data["body"])
+            with open(f'media/{name}.png', 'wb') as f:
+                f.write(response.file.read())
+            post = Post(
+                created_by= UserProfile.objects.get(user=request.user),
+                body = f"{name}.png",
+            ).save()
+            return HttpResponseRedirect("/")
+    
+    context = {
+        "canvasForm": CanvasForm()
+    }
+    return render(request, "create_post.html", context)
