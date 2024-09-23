@@ -7,9 +7,10 @@
     {% load static %}
     <img src="/media/{{post.body.name }}" alt="body image">
 
-    <h3>Replies:</h3>
     <h4> draw your own reply</h4>
     {% include 'paint.html' %}
+
+    <h3>Replies:</h3>
 
     {% if replys %}
         {% for reply in replys %}
