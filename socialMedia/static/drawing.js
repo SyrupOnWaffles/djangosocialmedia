@@ -44,10 +44,6 @@ function draw(e) {
   ctx.lineTo(pos.x, pos.y); // to position
 
   ctx.stroke(); // draw it!
-  
-  console.log(pos)
-
-  
 }
 
 
@@ -57,6 +53,7 @@ function draw(e) {
 // add event listeners to trigger on different mouse events
 document.addEventListener("mousemove", draw);
 document.addEventListener("mousedown", setPosition);
+document.addEventListener("mousedown", draw);
 document.addEventListener("mouseenter", setPosition);
 
 function save() {

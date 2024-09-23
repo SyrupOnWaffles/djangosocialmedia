@@ -1,7 +1,8 @@
-<body>
-  <input id="hex" placeholder="enter hex color"></input>
-  <canvas id="draw"></canvas>
+<div>
+  <input id="hex" type="color"></input>
+  <canvas id="draw" height="405px" width="720px"></canvas>
   {% load static %}
   <script src="{% static 'drawing.js' %}"></script>
-</body>
-
+  <form action="" method="POST" id="canvasForm"> {% csrf_token %} <input type="hidden" name="body" id="my_hidden"> 
+  <input type="submit" name="submit" value="submit" onclick="save()"> </form>
+</div>

@@ -8,27 +8,18 @@
     <img src="/media/{{post.body.name }}" alt="body image">
 
     <h3>Replies:</h3>
+    <h4> draw your own reply</h4>
+    {% include 'paint.html' %}
+
     {% if replys %}
         {% for reply in replys %}
             <h4><a href="{% url 'profile_detail' reply.created_by.pk%}">{{ reply.created_by }}</a><br><small>{{ reply.created_on|timesince}} ago</small></h4>
             <img src="/media/{{reply.body.name }}" alt="body image">
         {% endfor %}
-        <h4> draw your own reply</h4>
     {% else %}
-        <h4> there are no replys yet. draw one</h4>
+        <h4> there are no replys yet</h4>
     {% endif %}
 
-    <div>
-        <input id="hex" placeholder="enter hex color"></input>
-        <canvas id="draw" height="405px" width="720px"></canvas>
-        {% load static %}
-        <script src="{% static 'drawing.js' %}"></script>
-        <form action="" method="POST" id="canvasForm"> {% csrf_token %} <input type="hidden" name="body" id="my_hidden"> <input
-            type="submit" name="submit" value="submit" onclick="save()"> </form>
-        <script>
-        
-        </script>
-    </div>
     
     
 
