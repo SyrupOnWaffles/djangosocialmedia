@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
-from socialMedia.models import Post, UserProfile, Reply
+from socialMedia.models import Post, UserProfile, Reply, Like
 from socialMedia.forms import CanvasForm
 import urllib.request
 import random
@@ -12,6 +12,7 @@ import string
 def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
     replys = Reply.objects.filter(post=post).order_by("-created_on")
+    likes = Like.objects.filter(post=post).count()
 
     form = CanvasForm()
     if request.method == "POST":
@@ -31,6 +32,7 @@ def post_detail(request, pk):
     context = {
         "post": post,
         "replys": replys,
+        "likes" : likes,
         "canvasForm": CanvasForm()
     }
     return render(request, "post_detail.html", context)

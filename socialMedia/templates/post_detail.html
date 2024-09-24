@@ -6,6 +6,7 @@
 
     {% load static %}
     <img src="/media/{{post.body.name }}" alt="body image">
+    <h1 >{{likes}} likes</h1>
 
     
     {% if user.is_authenticated %}

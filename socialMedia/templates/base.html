@@ -18,10 +18,22 @@
         <div style="float:right;">
             {% if user.is_authenticated %}
                 <li style="display: inline;"><a href="{% url 'profile_detail' user.pk %}">Account</a></li>
-                <li style="display: inline;"><a href="{% url 'logout' %}" style="color: var(--code)">Log Out</a></li>
+                {% comment %} <li style="display: inline;"><a href="{% url 'logout' %}" style="color: var(--code)">Log Out</a></li> {% endcomment %}
+                <li style="display: inline;">
+                    <form style="display: inline;" method="post" action="{% url 'logout' %}">
+                        {% csrf_token %}
+                        <button type="submit">Log Out</button>
+                    </form>
+            </li>
             {% else %}
-                <li style="display: inline;"><a style="color: var(--code)" href="{% url 'signup' %}">Sign Up</a></li>
-                <li style="display: inline;"><a style="color: var(--code)" href="{% url 'login' %}">Log In</a></li>
+                <form style="display: inline;" method="post" action="{% url 'login' %}">
+                    {% csrf_token %}
+                    <button type="submit">Log In</button>
+                </form>
+                <form style="display: inline;" method="post" action="{% url 'signup' %}">
+                    {% csrf_token %}
+                    <button type="submit">Sign Up</button>
+                </form>
             {% endif %}
         </div>
 

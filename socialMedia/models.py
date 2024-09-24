@@ -6,9 +6,9 @@ import os
 
 class Post(models.Model):
     body = models.ImageField()
-    # created_by = models.OneToOneField(User, on_delete=models.PROTECT)
     created_by = models.ForeignKey("UserProfile", on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
+    
     def __str__(self):
         return os.path.basename(self.body.path)
 
@@ -20,6 +20,18 @@ class Reply(models.Model):
     def __str__(self):
         return os.path.basename(self.body.path)
 
+class Like(models.Model):
+    post = models.ForeignKey("Post", on_delete=models.CASCADE)
+    created_by = models.ForeignKey("UserProfile", on_delete=models.CASCADE)
+    created_on = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['created_by', 'post'], name="unique_like"),
+        ]
+    # def __str__(self):
+    #     return os.path.basename(self.po)
+    
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_picture = models.ImageField(default="placeholders/fpfPlaceholder.png")
