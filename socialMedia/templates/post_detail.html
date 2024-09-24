@@ -6,7 +6,12 @@
 
     {% load static %}
     <img src="/media/{{post.body.name }}" alt="body image">
-    <h1 >{{likes}} likes</h1>
+
+    <form method="post" action="{% url 'post_like' post.pk %}">
+        {% csrf_token %}
+        <button type="submit">Like</button>
+    </form>
+    <h1 style="display: inline;">{{likes}} likes</h1>
 
     
     {% if user.is_authenticated %}

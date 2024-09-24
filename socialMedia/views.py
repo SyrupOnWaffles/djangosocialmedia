@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.urls import reverse, reverse_lazy
 from socialMedia.models import Post, UserProfile, Reply, Like
+from django.shortcuts import get_object_or_404
 from socialMedia.forms import CanvasForm
 import urllib.request
 import random
@@ -82,3 +83,24 @@ def create_post(request):
         "canvasForm": CanvasForm()
     }
     return render(request, "create_post.html", context)
+
+def post_like(request, pk):
+    if request.user.is_authenticated is False:
+        return HttpResponseRedirect("/")
+    
+    if request.method == "POST":
+        if request.user.is_authenticated is True:
+            # post = Post.objects.get(pk=pk)
+            if Like.objects.filter(post=pk,created_by=request.user.pk).exists():
+                # post.likes.remove(request.user)
+                Like.objects.filter(post=pk,created_by=request.user.pk).delete()
+                # print("yaejh")
+            else:
+                Like.objects.create(post=Post.objects.get(pk=pk),created_by=UserProfile.objects.get(pk=request.user.pk))
+                # print("naur")
+                
+            return HttpResponseRedirect(reverse(post_detail,args=[pk]))
+
+                # post.likes.add(request.user)
+    # return HttpResponseRedirect(request.path_info)
+            # return HttpResponseRedirect(reverse('blogpost-detail', args=[str(pk)]))
