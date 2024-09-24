@@ -11,13 +11,20 @@
 <body>
     <ul style="list-style-type: none;margin: 0;padding: 0;">
         <li style="display: inline;"><a href="{% url 'home'%}">Home</a></li>
-        <li style="display: inline;"><a href="{% url 'create_post'%}">Create Post</a></li>
-        <li style="display: inline;"><a href="{% url 'profile_detail' user.pk %}">Account</a></li>
-
+        {% if user.is_authenticated %}
+            <li style="display: inline;"><a href="{% url 'create_post'%}">Create Post</a></li>
+        {% endif %}
+        
         <div style="float:right;">
-        <li style="display: inline;"><a href="{% url 'signup' %}">Sign Up</a></li>
-        <li style="display: inline;"><a href="{% url 'login' %}">Log In</a></li>
+            {% if user.is_authenticated %}
+                <li style="display: inline;"><a href="{% url 'profile_detail' user.pk %}">Account</a></li>
+                <li style="display: inline;"><a href="{% url 'logout' %}" style="color: var(--code)">Log Out</a></li>
+            {% else %}
+                <li style="display: inline;"><a style="color: var(--code)" href="{% url 'signup' %}">Sign Up</a></li>
+                <li style="display: inline;"><a style="color: var(--code)" href="{% url 'login' %}">Log In</a></li>
+            {% endif %}
         </div>
+
 
         {% comment %} <li style="display: inline;"><a href="{% url 'home'%}">About</a></li> {% endcomment %}
       </ul>

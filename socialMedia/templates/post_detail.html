@@ -7,8 +7,13 @@
     {% load static %}
     <img src="/media/{{post.body.name }}" alt="body image">
 
-    <h4> draw your own reply</h4>
-    {% include 'paint.html' %}
+    
+    {% if user.is_authenticated %}
+        <h4> draw your own reply</h4>
+        {% include 'paint.html' %}
+    {% else %}
+        <h4><a href="{% url 'login'%}">login</a> to reply</h4>
+    {% endif %}
 
     <h3>Replies:</h3>
 

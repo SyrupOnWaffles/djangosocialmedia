@@ -4,7 +4,11 @@
     <!-- {% load static %}
     <img src="/media/{{post.body.name }}" alt="body image"> -->
 
-    <h2>{{profile.user}}'s artworks</h2>
+    {% if user == profile.user %}
+        <h2>your artworks</h2>
+    {% else %}
+        <h2>{{profile.user}}'s artworks</h2>    
+    {% endif %}
     <!-- {% if posts %} -->
     {% for post in posts %}
         <h4><small>{{ post.created_on|timesince}} ago</small></h4>

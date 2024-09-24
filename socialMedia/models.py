@@ -22,8 +22,8 @@ class Reply(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    profile_picture = models.ImageField(default="fpfPlaceholder.png")
-    bio_picture = models.ImageField(default="bioPlaceholder.png")
+    profile_picture = models.ImageField(default="placeholders/fpfPlaceholder.png")
+    bio_picture = models.ImageField(default="placeholders/bioPlaceholder.png")
     follows = models.ManyToManyField(
         "self",
         related_name="followed_by",

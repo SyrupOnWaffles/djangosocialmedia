@@ -1,10 +1,12 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
+from django.urls import reverse, reverse_lazy
 from socialMedia.models import Post, UserProfile, Reply
 from socialMedia.forms import CanvasForm
 import urllib.request
 import random
 import string
+
 
 # Create your views here.
 def post_detail(request, pk):
@@ -58,6 +60,8 @@ def post_homepage(request):
 
 # Create your views here.
 def create_post(request):
+    if request.user.is_authenticated is False:
+        return HttpResponseRedirect("/")
     form = CanvasForm()
     if request.method == "POST":
         form = CanvasForm(request.POST)
@@ -70,7 +74,7 @@ def create_post(request):
                 created_by= UserProfile.objects.get(user=request.user),
                 body = f"{name}.png",
             ).save()
-            return HttpResponseRedirect("/")
+            return HttpResponseRedirect(reverse(post_detail,args=[Post.objects.get(body=f"{name}.png").pk]))
     
     context = {
         "canvasForm": CanvasForm()
