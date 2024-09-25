@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django import template
 from socialMedia.models import Post, UserProfile, Reply, Like
@@ -91,10 +91,12 @@ def post_like(request, pk):
                 query.delete()
             else:
                 Like.objects.create(post=Post.objects.get(pk=pk),created_by=UserProfile.objects.get(pk=request.user.pk))
-            print(request.path)
+            print(pk)
             next = request.POST.get('next', '/')
             return HttpResponseRedirect(next)
 
+def post_get_likes(request, pk):
+    return HttpResponse(Post.objects.get(pk=pk).likes.count())
                 # post.likes.add(request.user)
     # return HttpResponseRedirect(request.path_info)
             # return HttpResponseRedirect(reverse('blogpost-detail', args=[str(pk)]))
