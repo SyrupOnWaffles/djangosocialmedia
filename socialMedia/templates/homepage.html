@@ -3,9 +3,7 @@
 {% block page_content %}
     <h2>Posts</h2>
     {% for post in posts %}
-        {% load static %}
-        <h4><a href="{% url 'profile_detail' post.created_by.pk%}">{{ post.created_by }}</a><br><small>{{ post.created_on|timesince}} ago</small></h4>
-        <a href="{% url 'post_detail' post.pk%}"> <img src="/media/{{post.body.name }}" alt="body image"></a>  
+        {% include 'post.html' %}
     {% endfor %}
 
 {% endblock page_content %}

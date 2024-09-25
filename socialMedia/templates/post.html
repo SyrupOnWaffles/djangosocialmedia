@@ -1,0 +1,17 @@
+<h4><a href="{% url 'profile_detail' post.created_by.pk%}">{{ post.created_by }}</a><br><small>{{ post.created_on|timesince}} ago</small><br></h4>
+{% load static %}
+<a href="{% url 'post_detail' post.pk%}"> <img src="/media/{{post.body.name }}" alt="body image"></a>  
+<form method="post" action="{% url 'post_like' post.pk %}">
+    <br>
+    {% csrf_token %}
+    {% load filters %}
+    {% if post.likes.all|dasame:user.pk %}
+        <button type="submit">♥</button>
+    {% else %}
+        <button type="submit">♡</button>
+    {% endif %}
+    <h4 style="display: inline">{{post.likes.all.count}} likes</h4>
+    <h4 style="display: inline"></h4>
+
+    <input type="hidden" name="next" value="{{ request.path }}">
+</form>

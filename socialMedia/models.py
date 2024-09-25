@@ -21,7 +21,7 @@ class Reply(models.Model):
         return os.path.basename(self.body.path)
 
 class Like(models.Model):
-    post = models.ForeignKey("Post", on_delete=models.CASCADE)
+    post = models.ForeignKey("Post", on_delete=models.CASCADE,related_name='likes')
     created_by = models.ForeignKey("UserProfile", on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
     

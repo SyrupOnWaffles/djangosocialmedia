@@ -1,19 +1,17 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
+from django import template
 from socialMedia.models import Post, UserProfile, Reply, Like
-from django.shortcuts import get_object_or_404
 from socialMedia.forms import CanvasForm
 import urllib.request
 import random
 import string
 
-
-# Create your views here.
 def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
     replys = Reply.objects.filter(post=post).order_by("-created_on")
-    likes = Like.objects.filter(post=post).count()
+    liked = Like.objects.filter(created_by=request.user.pk)
 
     form = CanvasForm()
     if request.method == "POST":
@@ -29,11 +27,11 @@ def post_detail(request, pk):
                 post=post,
             ).save()
             return HttpResponseRedirect(request.path_info)
-        
+    
     context = {
         "post": post,
         "replys": replys,
-        "likes" : likes,
+        "liked" : liked,
         "canvasForm": CanvasForm()
     }
     return render(request, "post_detail.html", context)
@@ -48,7 +46,6 @@ def profile_detail(request, pk):
     }
     return render(request, "profile_detail.html", context)
 
-# Create your views here.
 def post_homepage(request):
     posts = Post.objects.all().order_by("-created_on")
     # replys = Reply.objects.filter(post=post)
@@ -61,7 +58,6 @@ def post_homepage(request):
 
     return render(request, "homepage.html", context)
 
-# Create your views here.
 def create_post(request):
     if request.user.is_authenticated is False:
         return HttpResponseRedirect("/")
@@ -90,16 +86,14 @@ def post_like(request, pk):
     
     if request.method == "POST":
         if request.user.is_authenticated is True:
-            # post = Post.objects.get(pk=pk)
-            if Like.objects.filter(post=pk,created_by=request.user.pk).exists():
-                # post.likes.remove(request.user)
-                Like.objects.filter(post=pk,created_by=request.user.pk).delete()
-                # print("yaejh")
+            query = Like.objects.filter(post=pk,created_by=request.user.pk)
+            if query.exists():
+                query.delete()
             else:
                 Like.objects.create(post=Post.objects.get(pk=pk),created_by=UserProfile.objects.get(pk=request.user.pk))
-                # print("naur")
-                
-            return HttpResponseRedirect(reverse(post_detail,args=[pk]))
+            print(request.path)
+            next = request.POST.get('next', '/')
+            return HttpResponseRedirect(next)
 
                 # post.likes.add(request.user)
     # return HttpResponseRedirect(request.path_info)

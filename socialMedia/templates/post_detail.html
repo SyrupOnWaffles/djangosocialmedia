@@ -2,18 +2,8 @@
 
 {% block page_content %}
 
-    <h4><a href="{% url 'profile_detail' post.created_by.pk%}">{{ post.created_by }}</a><br><small>{{ post.created_on|timesince}} ago</small></h4>
+    {% include 'post.html' %}
 
-    {% load static %}
-    <img src="/media/{{post.body.name }}" alt="body image">
-
-    <form method="post" action="{% url 'post_like' post.pk %}">
-        {% csrf_token %}
-        <button type="submit">Like</button>
-    </form>
-    <h1 style="display: inline;">{{likes}} likes</h1>
-
-    
     {% if user.is_authenticated %}
         <h4> draw your own reply</h4>
         {% include 'paint.html' %}
