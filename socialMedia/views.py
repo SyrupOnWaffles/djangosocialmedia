@@ -5,6 +5,7 @@ from django.db.models import Count
 from django.core.paginator import Paginator
 from socialMedia.models import Post, UserProfile, Reply, Like
 from socialMedia.forms import CanvasForm
+from django.db.models.functions import Now
 import urllib.request
 import random
 import string
@@ -39,27 +40,51 @@ def post_detail(request, pk):
     return render(request, "post_detail.html", context)
 
 def profile_detail(request, pk):
-    profile = UserProfile.objects.get( pk=pk)
-    posts = Post.objects.filter(created_by=pk).order_by('-created_on')
+    profile = UserProfile.objects.get(pk=pk)
 
+    page=1
+    order_by="-like_count"
+
+    parsed_url = parse_qs(urlparse(request.build_absolute_uri()).query)    
+    if('page' in parsed_url):
+        page=parsed_url['page'][0]
+    if('sort_by' in parsed_url):
+        if(parsed_url['sort_by'][0]=="best"):
+            order_by="-like_count"
+        elif(parsed_url['sort_by'][0]=="worst"):
+            order_by="like_count"
+        elif(parsed_url['sort_by'][0]=="new"):
+            order_by="-created_on"
+
+    posts = Post.objects.filter(created_by=pk)
+    posts = Paginator(posts.annotate(like_count=Count('likes')+1).order_by(order_by), 5)
+    
     context = {
-        "profile": profile,
-        "posts": posts,
+        "profile" : profile,
+        "posts": posts.page(page),
+        "sort_by" :order_by,
+        "page" : page,
     }
     return render(request, "profile_detail.html", context)
 
 def post_homepage(request):
     page=1
-    order_by="-created_on"
+    order_by="-like_count"
 
-    parsed_url = parse_qs(urlparse(request.build_absolute_uri()).query)
-    
+    parsed_url = parse_qs(urlparse(request.build_absolute_uri()).query)    
     if('page' in parsed_url):
         page=parsed_url['page'][0]
     if('sort_by' in parsed_url):
-        order_by=parsed_url['sort_by'][0]
-    print(parsed_url)
-    posts = Paginator(Post.objects.all().annotate(like_count=Count('likes')+1).order_by(order_by), 5)
+        if(parsed_url['sort_by'][0]=="best"):
+            order_by="-like_count"
+        elif(parsed_url['sort_by'][0]=="worst"):
+            order_by="like_count"
+        elif(parsed_url['sort_by'][0]=="new"):
+            order_by="-created_on"
+
+    posts = Post.objects.all()
+    posts = Paginator(posts.annotate(like_count=Count('likes')+1).order_by(order_by), 5)
+    
     context = {
         "posts": posts.page(page),
         "sort_by" :order_by,
