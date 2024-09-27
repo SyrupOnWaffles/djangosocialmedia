@@ -431,7 +431,9 @@ button,
 }
 
 textarea,
-select,
+select{
+    border-style: dashed;
+}
 input {
     color: var(--text);
     background-color: var(--bg);

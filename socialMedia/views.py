@@ -50,7 +50,7 @@ def profile_detail(request, pk):
 
 def post_homepage(request):
     page=1
-    order_by="created_on"
+    order_by="-created_on"
 
     parsed_url = parse_qs(urlparse(request.build_absolute_uri()).query)
     
@@ -59,9 +59,11 @@ def post_homepage(request):
     if('sort_by' in parsed_url):
         order_by=parsed_url['sort_by'][0]
     print(parsed_url)
-    posts = Paginator(Post.objects.all().annotate(like_count=Count('likes')).order_by('likes'), 50)
+    posts = Paginator(Post.objects.all().annotate(like_count=Count('likes')+1).order_by(order_by), 5)
     context = {
         "posts": posts.page(page),
+        "sort_by" :order_by,
+        "page" : page,
     }
     return render(request, "homepage.html", context)
 

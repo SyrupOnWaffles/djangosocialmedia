@@ -1,0 +1,28 @@
+
+<div>
+    <bold>sort by</bold>
+    {% comment %} shitty code {% endcomment %}
+    <select onchange="location = this.value;">
+        {% if sort_by == "-created_on" %}
+            <option selected value="/?sort_by=-created_on&page={{page}}">New</option>
+            <option value="/?sort_by=created_on&page={{page}}">Old</option>
+            <option value="/?sort_by=-like_count&page={{page}}">Best</option>
+            <option value="/?sort_by=like_count&page={{page}}">Worst</option>
+        {%  elif sort_by == "created_on" %}
+            <option value="/?sort_by=-created_on&page={{page}}">New</option>
+            <option selected value="/?sort_by=created_on&page={{page}}">Old</option>
+            <option value="/?sort_by=-like_count&page={{page}}">Best</option>
+            <option value="/?sort_by=like_count&page={{page}}">Worst</option>
+        {%  elif sort_by == "-like_count" %}
+            <option value="/?sort_by=-created_on&page={{page}}">New</option>
+            <option value="/?sort_by=created_on&page={{page}}">Old</option>
+            <option selected value="/?sort_by=-like_count&page={{page}}">Best</option>
+            <option value="/?sort_by=like_count&page={{page}}">Worst</option>
+         {%  elif sort_by == "like_count" %}
+            <option value="/?sort_by=-created_on&page={{page}}">New</option>
+            <option value="/?sort_by=created_on&page={{page}}">Old</option>
+            <option value="/?sort_by=-like_count&page={{page}}">Best</option>
+            <option selected value="/?sort_by=like_count&page={{page}}">Worst</option>
+        {% endif%}
+    </select>
+</div>
