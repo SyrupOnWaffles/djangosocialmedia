@@ -1,18 +1,25 @@
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-<div>
-<h4><a href="{% url 'profile_detail' post.created_by.pk%}">{{ post.created_by }}</a><br><small>{{ post.created_on|timesince}} ago</small><br></h4>
 {% load static %}
 {% load filters %}
+<script src="{% static 'jquery.js' %}"></script>
 <script src="{% static 'like.js' %}"></script>
-<a href="{% url 'post_detail' post.pk%}"> <img src="/media/{{post.body.name }}" alt="body image"></a>  
 
-<button onclick="like('{% url 'post_like' post.pk %}',{{post.pk}},'{{ csrf_token }}')" id="p{{post.pk}}">    
-    {% if post.likes.all|dasame:user.pk %}
-        ♥
+<div class="post">
+    <h4><a href="{% url 'profile_detail' post.created_by.pk%}">{{ post.created_by }}</a><br><small>{{ post.created_on|timesince}} ago</small><br></h4>
+    <a href="{% url 'post_detail' post.pk%}"> <img src="/media/{{post.body.name }}" alt="body image"></a>  
+
+    {% if user.is_authenticated %}
+        <button onclick="like('{% url 'post_like' post.pk %}','{% url 'post_get_likes' post.pk %}',{{post.pk}},'{{ csrf_token }}')" id="p{{post.pk}}">    
+            {% if post.likes.all|dasame:user.pk %}
+                ♥
+            {% else %}
+                ♡
+            {% endif %}
+        </button>
     {% else %}
-        ♡
+        <form style="display: inline;" method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <button type="submit">♡</button>
+        </form> 
     {% endif %}
-</button>
-<h4 style="display: inline">{{post.likes.all.count}} likes</h4>
+    <h4 id="pl{{post.pk}}" style="display: inline">{{post.likes.all.count}} likes</h4>
 <div>

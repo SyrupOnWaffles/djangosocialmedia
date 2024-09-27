@@ -1,12 +1,14 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
-from django import template
+from django.db.models import Count
+from django.core.paginator import Paginator
 from socialMedia.models import Post, UserProfile, Reply, Like
 from socialMedia.forms import CanvasForm
 import urllib.request
 import random
 import string
+from urllib.parse import urlparse, parse_qs
 
 def post_detail(request, pk):
     post = Post.objects.get(pk=pk)
@@ -47,15 +49,20 @@ def profile_detail(request, pk):
     return render(request, "profile_detail.html", context)
 
 def post_homepage(request):
-    posts = Post.objects.all().order_by("-created_on")
-    # replys = Reply.objects.filter(post=post)
+    page=1
+    order_by="created_on"
 
-    # comments = Comment.objects.filter(post=post)
+    parsed_url = parse_qs(urlparse(request.build_absolute_uri()).query)
+    
+    if('page' in parsed_url):
+        page=parsed_url['page'][0]
+    if('sort_by' in parsed_url):
+        order_by=parsed_url['sort_by'][0]
+    print(parsed_url)
+    posts = Paginator(Post.objects.all().annotate(like_count=Count('likes')).order_by('likes'), 50)
     context = {
-        "posts": posts,
-        # "replys": replys,
+        "posts": posts.page(page),
     }
-
     return render(request, "homepage.html", context)
 
 def create_post(request):
@@ -91,12 +98,8 @@ def post_like(request, pk):
                 query.delete()
             else:
                 Like.objects.create(post=Post.objects.get(pk=pk),created_by=UserProfile.objects.get(pk=request.user.pk))
-            print(pk)
             next = request.POST.get('next', '/')
             return HttpResponseRedirect(next)
 
 def post_get_likes(request, pk):
     return HttpResponse(Post.objects.get(pk=pk).likes.count())
-                # post.likes.add(request.user)
-    # return HttpResponseRedirect(request.path_info)
-            # return HttpResponseRedirect(reverse('blogpost-detail', args=[str(pk)]))
