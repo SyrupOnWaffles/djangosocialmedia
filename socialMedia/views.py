@@ -89,6 +89,7 @@ def post_homepage(request):
         "posts": posts.page(page),
         "sort_by" :order_by,
         "page" : page,
+        "max_page" : posts.num_pages
     }
     return render(request, "homepage.html", context)
 

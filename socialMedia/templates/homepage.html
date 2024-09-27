@@ -6,4 +6,14 @@
     {% for post in posts %}
         {% include 'post.html' %}
     {% endfor %}
+
+    <div>
+        {% if page|slugify != 1|slugify %}
+            <a href="?sort_by={{sort_by}}&page={{page|add:'-1'}}">Prev Page</a>
+        {% endif %}
+
+        {% if page|slugify != max_page|slugify %}
+            <a href="?sort_by={{sort_by}}&page={{page|add:'1'}}"style="float: right;">Next Page</a>
+        {% endif %}
+    </div>
 {% endblock page_content %}
