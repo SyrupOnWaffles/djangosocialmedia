@@ -12,11 +12,11 @@
     {% endif %}
 
     <h3>Replies:</h3>
+    {% include "components/sort.html" %}
 
-    {% if post.replys.all %}
-        {% for reply in post.replys.all %}
-            <h4><a href="{% url 'profile_detail' reply.created_by.pk%}">{{ reply.created_by }}</a><br><small>{{ reply.created_on|timesince}} ago</small></h4>
-            <img src="/media/{{reply.body.name }}" alt="body image">
+    {% if replys %}
+        {% for reply in replys %}
+            {% include 'components/reply.html' %}
         {% endfor %}
     {% else %}
         <h4> there are no replys yet</h4>

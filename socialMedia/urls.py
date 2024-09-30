@@ -14,4 +14,6 @@ urlpatterns = [
     path('post/like/<int:pk>/',views.post_like,name="post_like"),
     path('post/get/likes/<int:pk>',views.post_get_likes,name="post_get_likes"),
 
+    path('reply/like/<int:pk>/',views.reply_like,name="reply_like"),
+    path('reply/get/likes/<int:pk>',views.reply_get_likes,name="reply_get_likes"),
 ]

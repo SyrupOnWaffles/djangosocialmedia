@@ -31,7 +31,7 @@ class Like(models.Model):
         ]
 
 class ReplyLike(models.Model):
-    reply = models.ForeignKey("Reply", on_delete=models.CASCADE)
+    reply = models.ForeignKey("Reply", on_delete=models.CASCADE,related_name='reply_likes')
     created_by = models.ForeignKey("UserProfile", on_delete=models.CASCADE)
     created_on = models.DateTimeField(auto_now_add=True)
     
