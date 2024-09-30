@@ -1,5 +1,4 @@
 function like(url1,url2,ele,token){
-    console.log(url2)
     $.ajax({
     url: url1,
     type: "POST",
@@ -18,7 +17,9 @@ function like(url1,url2,ele,token){
             url: url2,
             type: "GET",
             success: (data) => {
-                $("#pl"+ele).text(data+ " likes");
+                text = $("#pl"+ele).text().split(" ")
+                text[0]=data
+                $("#pl"+ele).text(text.join(" "));
             },
             error: (error) => {
             console.log(error);

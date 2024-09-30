@@ -2,18 +2,12 @@
 
 {% block page_content %}
     <h2>Posts</h2>
-    {% include "sort.html" %}
+    {% include "components/sort.html" %}
+
     {% for post in posts %}
-        {% include 'post.html' %}
+        {% include 'components/post.html' %}
     {% endfor %}
 
-    <div>
-        {% if page|slugify != 1|slugify %}
-            <a href="?sort_by={{sort_by}}&page={{page|add:'-1'}}">Prev Page</a>
-        {% endif %}
-
-        {% if page|slugify != max_page|slugify %}
-            <a href="?sort_by={{sort_by}}&page={{page|add:'1'}}"style="float: right;">Next Page</a>
-        {% endif %}
-    </div>
+    {% include "components/page.html" %}
+    
 {% endblock page_content %}

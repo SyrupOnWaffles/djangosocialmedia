@@ -33,7 +33,6 @@ def post_detail(request, pk):
     
     context = {
         "post": post,
-        "replys": replys,
         "liked" : liked,
         "canvasForm": CanvasForm()
     }
@@ -44,6 +43,7 @@ def profile_detail(request, pk):
 
     page=1
     order_by="-like_count"
+    url_sort_by="best"
 
     parsed_url = parse_qs(urlparse(request.build_absolute_uri()).query)    
     if('page' in parsed_url):
@@ -51,25 +51,30 @@ def profile_detail(request, pk):
     if('sort_by' in parsed_url):
         if(parsed_url['sort_by'][0]=="best"):
             order_by="-like_count"
+            url_sort_by="best"
         elif(parsed_url['sort_by'][0]=="worst"):
             order_by="like_count"
+            url_sort_by="worst"
         elif(parsed_url['sort_by'][0]=="new"):
             order_by="-created_on"
-
+            url_sort_by="new"
     posts = Post.objects.filter(created_by=pk)
-    posts = Paginator(posts.annotate(like_count=Count('likes')+1).order_by(order_by), 5)
+    posts = Paginator(posts.annotate(like_count=Count('likes')+1).order_by(order_by), 10)
     
     context = {
         "profile" : profile,
         "posts": posts.page(page),
+        "url_sort_by":url_sort_by,
         "sort_by" :order_by,
         "page" : page,
+        "max_page" : posts.num_pages,
     }
     return render(request, "profile_detail.html", context)
 
 def post_homepage(request):
     page=1
     order_by="-like_count"
+    url_sort_by="best"
 
     parsed_url = parse_qs(urlparse(request.build_absolute_uri()).query)    
     if('page' in parsed_url):
@@ -77,17 +82,20 @@ def post_homepage(request):
     if('sort_by' in parsed_url):
         if(parsed_url['sort_by'][0]=="best"):
             order_by="-like_count"
+            url_sort_by="best"
         elif(parsed_url['sort_by'][0]=="worst"):
             order_by="like_count"
+            url_sort_by="worst"
         elif(parsed_url['sort_by'][0]=="new"):
             order_by="-created_on"
+            url_sort_by="new"
 
     posts = Post.objects.all()
-    posts = Paginator(posts.annotate(like_count=Count('likes')+1).order_by(order_by), 5)
+    posts = Paginator(posts.annotate(like_count=Count('likes')+1).order_by(order_by), 10)
     
     context = {
         "posts": posts.page(page),
-        "sort_by" :order_by,
+        "url_sort_by" :url_sort_by,
         "page" : page,
         "max_page" : posts.num_pages
     }
@@ -114,6 +122,28 @@ def create_post(request):
         "canvasForm": CanvasForm()
     }
     return render(request, "create_post.html", context)
+
+def create_pfp(request):
+    if request.user.is_authenticated is False:
+        return HttpResponseRedirect("/")
+    form = CanvasForm()
+    if request.method == "POST":
+        form = CanvasForm(request.POST)
+        if form.is_valid():
+            name = ''.join(random.choices(string.ascii_uppercase + string.digits + string.ascii_lowercase, k=64))
+            response = urllib.request.urlopen(form.cleaned_data["body"])
+            with open(f'media/{name}.png', 'wb') as f:
+                f.write(response.file.read())
+            user = UserProfile.objects.get(pk=request.user.pk)
+            user.profile_picture = f"{name}.png"
+            user.save()
+
+            return HttpResponseRedirect(reverse(profile_detail,args=[request.user.pk]))
+    
+    context = {
+        "canvasForm": CanvasForm()
+    }
+    return render(request, "create_pfp.html", context)
 
 def post_like(request, pk):
     if request.user.is_authenticated is False:

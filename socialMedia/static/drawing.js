@@ -57,7 +57,7 @@ function changeColor(colour){
 }
 
 function clearCanvas(){
-  changeSize(20)
+  // changeSize(20)
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 

@@ -3,18 +3,22 @@
 {% block page_content %}
     <!-- {% load static %}
     <img src="/media/{{post.body.name }}" alt="body image"> -->
+    <div style="margin-top: 3rem;margin-bottom: 3rem;">
+        <a href="{% url 'create_pfp' %}"><img style="width: 75px;height: 75px; border-style: none;vertical-align: middle;" src="/media/{{profile.profile_picture}}" alt="body image"></a>  
+        {% if user == profile.user %}
+            <h2 style="display: inline;">your profile</h2>
+            <br>
+        {% else %}
+            <h2 style="display: inline;">{{profile.user}}'s profile</h2>    
+        {% endif %}
+    </div>
 
-    {% if user == profile.user %}
-        <h2>your artworks</h2>
-    {% else %}
-        <h2>{{profile.user}}'s artworks</h2>    
-    {% endif %}
-
-    {% include "sort.html" %}
-    
+    {% include "components/sort.html" %}
+        
     {% for post in posts %}
-        {% include 'post.html' %}
+        {% include 'components/post.html' %}
     {% endfor %}
 
+    {% include "components/page.html" %}
 
 {% endblock page_content %}

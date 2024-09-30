@@ -1,0 +1,21 @@
+
+<div>
+    {% comment %} shitty code {% endcomment %}
+    <select onchange="location = window.location.href.split('?')[0] + this.value;">
+        {% if url_sort_by == "new" %}
+            <option selected value="?sort_by=new">New</option>
+            <option value="?sort_by=best">Best</option>
+            <option value="?sort_by=worst">Worst</option>
+        {%  elif url_sort_by == "best" %}
+            <option value="?sort_by=new">New</option>
+            <option selected value="?sort_by=best">Best</option>
+            <option value="?sort_by=worst">Worst</option>
+            <h1>of</h1>
+         {%  elif url_sort_by == "worst" %}
+            <option value="?sort_by=new">New</option>
+            <option value="?sort_by=best">Best</option>
+            <option selected value="?sort_by=worst">Worst</option>
+        {% endif%}
+    </select>
+    <hr>
+</div>
