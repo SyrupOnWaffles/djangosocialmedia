@@ -1,7 +1,5 @@
 {% load static %}
 {% load filters %}
-<script src="{% static 'jquery.js' %}"></script>
-<script src="{% static 'reply_like.js' %}"></script>
 
 <div class="reply">
     <div>
@@ -11,7 +9,7 @@
         </h4>
         <b>{{ reply.created_on|timesince}} ago</b>
         <br>
-        <img src="/media/{{reply.body.name }}" alt="body image">
+        <div class="photo"><img class="art" src="/media/{{reply.body.name }}" alt="body image"></div>
     </div>
 
     {% if user.is_authenticated %}
@@ -29,5 +27,5 @@
         </form> 
     {% endif %}
     <h4 id="rl{{reply.pk}}" style="display: inline">{{reply.reply_likes.all.count}} likes</h4>
-    <hr>
+    {% include 'components/break.html' %}
 <div>

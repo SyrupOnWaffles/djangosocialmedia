@@ -15,8 +15,6 @@ def post_detail(request, pk):
     order_by="-like_count"
     url_sort_by="best"
     parsed_url = parse_qs(urlparse(request.build_absolute_uri()).query)    
-    if('page' in parsed_url):
-        page=parsed_url['page'][0]
     if('sort_by' in parsed_url):
         if(parsed_url['sort_by'][0]=="best"):
             order_by="-like_count"
@@ -160,6 +158,28 @@ def create_pfp(request):
         "canvasForm": CanvasForm()
     }
     return render(request, "create_pfp.html", context)
+
+def create_bio(request):
+    if request.user.is_authenticated is False:
+        return HttpResponseRedirect("/")
+    form = CanvasForm()
+    if request.method == "POST":
+        form = CanvasForm(request.POST)
+        if form.is_valid():
+            name = ''.join(random.choices(string.ascii_uppercase + string.digits + string.ascii_lowercase, k=64))
+            response = urllib.request.urlopen(form.cleaned_data["body"])
+            with open(f'media/{name}.png', 'wb') as f:
+                f.write(response.file.read())
+            user = UserProfile.objects.get(pk=request.user.pk)
+            user.bio_picture = f"{name}.png"
+            user.save()
+
+            return HttpResponseRedirect(reverse(profile_detail,args=[request.user.pk]))
+    
+    context = {
+        "canvasForm": CanvasForm()
+    }
+    return render(request, "create_bio.html", context)
 
 def post_like(request, pk):
     if request.user.is_authenticated is False:

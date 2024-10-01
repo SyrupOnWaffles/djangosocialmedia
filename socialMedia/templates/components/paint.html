@@ -27,7 +27,7 @@
     <button id="size3" onclick="changeSize(80)" style="font-size: x-large;">⬤</button>
   </div>
   <button id="clear" onclick="clearCanvas()">clear canvas</button>
-  <canvas id="draw" height="405px" width="720px"></canvas>
+  <canvas id="draw" height="405px" width="720px" class="art"></canvas>
   {% load static %}
   <script src="{% static 'drawing.js' %}"></script>
   <form action="" method="POST" id="canvasForm"> {% csrf_token %} <input type="hidden" name="body" id="my_hidden"> <input type="submit" name="submit" value="submit" onclick="save()"> </form>

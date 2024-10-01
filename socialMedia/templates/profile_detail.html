@@ -4,15 +4,21 @@
     <!-- {% load static %}
     <img src="/media/{{post.body.name }}" alt="body image"> -->
     <div style="margin-top: 3rem;margin-bottom: 3rem;">
-        <a href="{% url 'create_pfp' %}"><img style="width: 75px;height: 75px; border-style: none;vertical-align: middle;" src="/media/{{profile.profile_picture}}" alt="body image"></a>  
+        <a href="{% url 'create_pfp' %}"><img style="height: 55px; border-style: none;vertical-align: middle;" src="/media/{{profile.profile_picture}}" alt="body image"></a>  
+
         {% if user == profile.user %}
             <h2 style="display: inline;">your profile</h2>
             <br>
         {% else %}
             <h2 style="display: inline;">{{profile.user}}'s profile</h2>    
         {% endif %}
-    </div>
 
+        <h3 style="margin: 1rem 0 1rem 0;">about me:</h3>
+        <div class="photo"><a href="{% url 'create_bio' %}"><img style="width: 100%; border-style: none; vertical-align: middle;" src="/media/{{profile.bio_picture}}" alt="body image"></a></div>
+    </div>
+    {% include 'components/break.html' %}
+
+    <h2 style="margin: 1rem 0 1rem 0;">my posts</h2>
     {% include "components/sort.html" %}
         
     {% for post in posts %}

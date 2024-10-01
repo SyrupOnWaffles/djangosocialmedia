@@ -7,6 +7,7 @@ urlpatterns = [
     path('profile/<int:pk>/',views.profile_detail,name="profile_detail"),
     path('paint/',views.create_post,name="create_post"),
     path('paintpfp/',views.create_pfp,name="create_pfp"),
+    path('paintbio/',views.create_bio,name="create_bio"),
 
     path('',views.post_homepage,name="home"),
 

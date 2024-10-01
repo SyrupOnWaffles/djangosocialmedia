@@ -1,4 +1,4 @@
-function like(url1,url2,ele,token){
+function reply_like(url1,url2,ele,token){
     $.ajax({
     url: url1,
     type: "POST",
