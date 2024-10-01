@@ -13,7 +13,7 @@
     </div>
 
     {% if user.is_authenticated %}
-        <button onclick="like('{% url 'reply_like' reply.pk %}','{% url 'reply_get_likes' reply.pk %}',{{reply.pk}},'{{ csrf_token }}')" id="r{{reply.pk}}">    
+        <button onclick="reply_like('{% url 'reply_like' reply.pk %}','{% url 'reply_get_likes' reply.pk %}',{{reply.pk}},'{{ csrf_token }}')" id="r{{reply.pk}}">    
             {% if reply.reply_likes.all|dasame:user.pk %}
                 ♥
             {% else %}
