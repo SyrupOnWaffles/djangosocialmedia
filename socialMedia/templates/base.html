@@ -14,29 +14,29 @@
 <script src="{% static 'jquery.js' %}"></script>
     
     <ul style="list-style-type: none;margin: 0;padding: 0;">
-        <li style="display: inline;"><a href="{% url 'home'%}">Home</a></li>
+        <li style="display: inline;"><a href="{% url 'home'%}">home</a></li>
         {% if user.is_authenticated %}
-            <li style="display: inline;"><a href="{% url 'create_post'%}">Create Post</a></li>
+            <li style="display: inline;"><a href="{% url 'create_post'%}">create post</a></li>
         {% endif %}
         
         <div style="float:right;">
             {% if user.is_authenticated %}
-                <li style="display: inline;"><a href="{% url 'profile_detail' user.pk %}">Account</a></li>
+                <li style="display: inline;"><a href="{% url 'profile_detail' user.pk %}">account</a></li>
                 {% comment %} <li style="display: inline;"><a href="{% url 'logout' %}" style="color: var(--code)">Log Out</a></li> {% endcomment %}
                 <li style="display: inline;">
                     <form style="display: inline;" method="post" action="{% url 'logout' %}">
                         {% csrf_token %}
-                        <button type="submit">Log Out</button>
+                        <button type="submit">log Out</button>
                     </form>
             </li>
             {% else %}
                 <form style="display: inline;" method="post" action="{% url 'login' %}">
                     {% csrf_token %}
-                    <button type="submit">Log In</button>
+                    <button type="submit">log in</button>
                 </form>
                 <form style="display: inline;" method="post" action="{% url 'signup' %}">
                     {% csrf_token %}
-                    <button type="submit">Sign Up</button>
+                    <button type="submit">sign up</button>
                 </form>
             {% endif %}
         </div>
