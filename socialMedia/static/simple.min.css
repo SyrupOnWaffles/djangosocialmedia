@@ -728,20 +728,6 @@ sub {
 .zig-zag-line {
     margin-top: 2rem;
     --a: 90deg; /* control the angle */
-    --s: 80px; /* size of the zig-zag */
-    --b: var(--standard-border-radius);  /* control the thickness */
-    
-    background: var(--text);
-    height: calc(var(--b) + var(--s)/(2*tan(var(--a)/2)));
-    width: 100%;
-    --_g:var(--s) repeat-x conic-gradient(from calc(var(--a)/-2) at bottom,
-      #0000,#000 1deg calc(var(--a) - 1deg),#0000 var(--a));
-    mask: 50% calc(-1*var(--b))/var(--_g) exclude,50%/var(--_g);
-  }
-
-  .thin-zig-zag-line {
-    margin-top: 2rem;
-    --a: 90deg; /* control the angle */
     --s: 30px; /* size of the zig-zag */
     --b: var(--standard-border-radius);  /* control the thickness */
     
