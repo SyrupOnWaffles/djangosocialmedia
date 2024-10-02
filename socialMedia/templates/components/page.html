@@ -1,9 +1,17 @@
 <div>
     {% if page|slugify != 1|slugify %}
-        <a href="?sort_by={{url_sort_by}}&page={{page|add:'-1'}}">previous page</a>
+        {% if url_sort_by %}
+            <a href="?sort_by={{url_sort_by}}&page={{page|add:'-1'}}">previous page</a>
+        {% else %}
+            <a href="?page={{page|add:'-1'}}">previous page</a>
+        {% endif %}
     {% endif %}
 
     {% if page|slugify != max_page|slugify %}
-        <a href="?sort_by={{url_sort_by}}&page={{page|add:'1'}}"style="float: right;">next page</a>
+        {% if url_sort_by %}
+            <a href="?sort_by={{url_sort_by}}&page={{page|add:'1'}}"style="float: right;">next page</a>
+        {% else %}
+            <a href="?page={{page|add:'1'}}"style="float: right;">next page</a>
+        {% endif %}
     {% endif %}
 </div>

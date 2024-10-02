@@ -7,16 +7,16 @@
         <a href="{% url 'create_pfp' %}"><img style="height: 55px; border-style: none;vertical-align: middle;" src="/media/{{profile.profile_picture}}" alt="body image"></a>  
 
         {% if user == profile.user %}
-            <h2 style="display: inline;">your profile</h2>
+            <h2 style="display: inline;">my profile</h2>
             <br>
         {% else %}
             <h2 style="display: inline;">{{profile.user}}'s profile</h2>    
         {% endif %}
 
-        <h3 style="margin: 1rem 0 1rem 0;">about me:</h3>
+        <h3>about me:</h3>
         <div class="photo"><a href="{% url 'create_bio' %}"><img class="art" style="width: 100%; vertical-align: middle;" src="/media/{{profile.bio_picture}}" alt="body image"></a></div>
     </div>
-    {% include 'components/break.html' %}
+    <div class="zig-zag-line"></div>
 
     <h2 style="margin: 1rem 0 1rem 0;">my posts</h2>
     {% include "components/sort.html" %}
