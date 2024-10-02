@@ -18,7 +18,13 @@
         {% if user.is_authenticated %}
             <li style="display: inline;"><a href="{% url 'create_post'%}">create post</a></li>
         {% endif %}
-        
+
+        <div style="display: inline;"> 
+            <li style="display: inline;">
+                <input type="text" placeholder="Search..">
+            </li>
+        </div>
+
         <div style="float:right;">
             {% if user.is_authenticated %}
                 <li style="display: inline;"><a href="{% url 'profile_detail' user.pk %}">account</a></li>

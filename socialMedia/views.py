@@ -105,7 +105,7 @@ def post_homepage(request):
             url_sort_by="new"
 
     posts = Post.objects.all()
-    posts = Paginator(posts.annotate(like_count=Count('likes')+1).order_by(order_by), 10)
+    posts = Paginator(posts.annotate(like_count=Count('likes')).order_by(order_by), 10)
     
     context = {
         "posts": posts.page(page),
