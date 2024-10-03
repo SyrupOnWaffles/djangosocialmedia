@@ -4,7 +4,11 @@
     <!-- {% load static %}
     <img src="/media/{{post.body.name }}" alt="body image"> -->
     <div style="margin-top: 3rem;margin-bottom: 3rem;">
-        <a href="{% url 'create_pfp' %}"><img style="height: 55px; border-style: none;vertical-align: middle;" src="/media/{{profile.profile_picture}}" alt="body image"></a>  
+        {% if user == profile.user %}
+            <a href="{% url 'create_pfp' %}"><img style="height: 55px; border-style: none;vertical-align: middle;" src="/media/{{profile.profile_picture}}" alt="body image"></a>  
+        {% else %}
+            <img style="height: 55px; border-style: none;vertical-align: middle;" src="/media/{{profile.profile_picture}}" alt="body image">  
+        {% endif %}
 
         {% if user == profile.user %}
             <h2 style="display: inline;">my profile</h2>
@@ -14,7 +18,12 @@
         {% endif %}
 
         <h3>about me:</h3>
-        <div class="photo"><a href="{% url 'create_bio' %}"><img class="art" style="width: 100%; vertical-align: middle;" src="/media/{{profile.bio_picture}}" alt="body image"></a></div>
+        {% if user == profile.user %}
+            <div class="photo"><a href="{% url 'create_bio' %}"><img class="art" style="width: 100%; vertical-align: middle;" src="/media/{{profile.bio_picture}}" alt="body image"></a></div>
+        {% else %}
+            <div class="photo"><img class="art" style="width: 100%; vertical-align: middle;" src="/media/{{profile.bio_picture}}" alt="body image"></div>
+        {% endif %}
+
     </div>
     <div class="zig-zag-line"></div>
 
@@ -24,6 +33,15 @@
     {% for post in posts %}
         {% include 'components/post.html' %}
     {% endfor %}
+
+    {% if posts %}
+    {% else %}
+        {% if user == profile.user %}
+            <h4> you have no posts yet. you can change that</h4>
+        {% else %}
+            <h4> this account has no posts yet. sad</h4>
+        {% endif %}
+    {% endif %}
 
     {% include "components/page.html" %}
 

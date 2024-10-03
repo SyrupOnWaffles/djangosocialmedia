@@ -19,7 +19,11 @@
             {% include 'components/reply.html' %}
         {% endfor %}
     {% else %}
-        <h4> there are no replys yet</h4>
+        {% if user == post.created_by.user %}
+            <h4> no one replied to your post yet. sad</h4>
+        {% else %}
+            <h4> no one replied to this post yet. you can change that</h4>
+        {% endif %}
     {% endif %}
 
 {% endblock page_content %}
