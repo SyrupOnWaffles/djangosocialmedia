@@ -8,7 +8,6 @@
             <a href="{% url 'profile_detail' post.created_by.pk%}">{{ post.created_by }}</a>
         </h4>
         <b>{{ post.created_on|timesince}} ago</b>
-        <br>
         <div class="photo"><a href="{% url 'post_detail' post.pk%}"> <img class="art" src="/media/{{post.body.name }}" alt="body image"></a></div>
     </div>
 

@@ -11,6 +11,25 @@ import random
 import string
 from urllib.parse import urlparse, parse_qs
 
+# search
+def profile_search(request, username):
+    page=1
+
+    parsed_url = parse_qs(urlparse(request.build_absolute_uri()).query)    
+    if('page' in parsed_url):
+        page=parsed_url['page'][0]
+    
+    profiles = UserProfile.objects.filter(user__username__contains=username)
+    profiles = Paginator(profiles, 100)
+
+    context = {
+        "page" : page,
+        "max_page" : profiles.num_pages,
+        "profiles": profiles.page(page),
+    }
+    return render(request, "profile_search.html", context)
+
+# post displays
 def post_detail(request, pk):
     order_by="-like_count"
     url_sort_by="best"
@@ -115,6 +134,7 @@ def post_homepage(request):
     }
     return render(request, "homepage.html", context)
 
+# drawing
 def create_post(request):
     if request.user.is_authenticated is False:
         return HttpResponseRedirect("/")
@@ -181,6 +201,7 @@ def create_bio(request):
     }
     return render(request, "create_bio.html", context)
 
+# likes
 def post_like(request, pk):
     if request.user.is_authenticated is False:
         return HttpResponseRedirect("/")

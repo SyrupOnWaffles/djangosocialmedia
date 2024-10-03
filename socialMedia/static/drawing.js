@@ -2,11 +2,6 @@ var canvas = document.getElementById("draw");
 
 var ctx = canvas.getContext("2d");
 
-if ( window.history.replaceState ) {
-    window.history.replaceState( null, null, window.location.href );
-  }
-  
-
 // initialize position as 0,0
 var pos = { x: 0, y: 0 };
 var lineWidth = 20;

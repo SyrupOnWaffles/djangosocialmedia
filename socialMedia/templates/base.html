@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
     <title>social media</title>
     {% block page_title %}{% endblock page_title %}
     
@@ -12,46 +14,45 @@
 <script src="{% static 'like.js' %}"></script>
 <script src="{% static 'reply_like.js' %}"></script>
 <script src="{% static 'jquery.js' %}"></script>
-    
-    <ul style="list-style-type: none;margin: 0;padding: 0;">
-        <li style="display: inline;"><a href="{% url 'home'%}">home</a></li>
+<script>if ( window.history.replaceState ) {window.history.replaceState( null, null, window.location.href );}
+      </script>
+<header>
+    <nav>
+        <a href="{% url 'home'%}">home</a>
         {% if user.is_authenticated %}
-            <li style="display: inline;"><a href="{% url 'create_post'%}">create post</a></li>
+            <a href="{% url 'create_post'%}">create post</a>
         {% endif %}
 
-        <div style="display: inline;"> 
-            <li style="display: inline;">
-                <input type="text" placeholder="Search..">
-            </li>
-        </div>
+        
 
-        <div style="float:right;">
-            {% if user.is_authenticated %}
-                <li style="display: inline;"><a href="{% url 'profile_detail' user.pk %}">account</a></li>
-                {% comment %} <li style="display: inline;"><a href="{% url 'logout' %}" style="color: var(--code)">Log Out</a></li> {% endcomment %}
-                <li style="display: inline;">
-                    <form style="display: inline;" method="post" action="{% url 'logout' %}">
-                        {% csrf_token %}
-                        <button type="submit">log Out</button>
-                    </form>
-            </li>
-            {% else %}
-                <form style="display: inline;" method="post" action="{% url 'login' %}">
-                    {% csrf_token %}
-                    <button type="submit">log in</button>
-                </form>
-                <form style="display: inline;" method="post" action="{% url 'signup' %}">
-                    {% csrf_token %}
-                    <button type="submit">sign up</button>
-                </form>
-            {% endif %}
-        </div>
+        <form style="display: inline;" method="get" id="search">
+            <input type="text" onchange="document.getElementById('search').action = '/search/'+this.value;" placeholder="search profiles...">
+        </form>
+
+        {% if user.is_authenticated %}
+            <a href="{% url 'profile_detail' user.pk %}">account</a>
+            
+            <form style="display: inline;" method="post" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit">log Out</button>
+            </form>
+        
+        {% else %}
+            <form style="display: inline;" method="post" action="{% url 'login' %}">
+                {% csrf_token %}
+                <button type="submit">log in</button>
+            </form>
+            <form style="display: inline;" method="post" action="{% url 'signup' %}">
+                {% csrf_token %}
+                <button type="submit">sign up</button>
+            </form>
+        {% endif %}
 
 
-        {% comment %} <li style="display: inline;"><a href="{% url 'home'%}">About</a></li> {% endcomment %}
-    <div class="zig-zag-line"></div>
-      </ul>
-
+        {% comment %} <a href="{% url 'home'%}">About</a> {% endcomment %}
+    </nav>
+    <h1>drawing social media</h1>
+</header>
 
 {% block page_content %}{% endblock page_content %}
 </body>
