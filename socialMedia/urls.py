@@ -9,6 +9,10 @@ urlpatterns = [
     path('paintpfp/',views.create_pfp,name="create_pfp"),
     path('paintbio/',views.create_bio,name="create_bio"),
 
+    # delete
+    path('post/delete/<int:pk>',views.delete_post,name="delete_post"),
+    path('reply/delete/<int:pk>',views.delete_reply,name="delete_reply"),
+
     # post displays
     path('',views.post_homepage,name="home"),
     path('post/<int:pk>/',views.post_detail,name="post_detail"),
@@ -22,6 +26,5 @@ urlpatterns = [
     path('reply/get/likes/<int:pk>',views.reply_get_likes,name="reply_get_likes"),
 
     # search
-    
     path('search/<username>/',views.profile_search,name="profile_search"),
 ]

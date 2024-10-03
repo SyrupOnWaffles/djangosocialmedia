@@ -5,8 +5,11 @@
     {% include 'components/post.html' %}
 
     {% if user.is_authenticated %}
-        <h4> draw your own reply</h4>
-        {% include 'components/paint.html' %}
+        <details style="border:none;background:none">
+        <summary>draw your own reply</summary>
+            {% include 'components/paint.html' %}
+        </details>
+    <div class="zig-zag-line"></div>
     {% else %}
         <h4><a href="{% url 'login'%}">login</a> to reply</h4>
     {% endif %}

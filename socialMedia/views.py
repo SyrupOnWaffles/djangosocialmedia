@@ -201,6 +201,26 @@ def create_bio(request):
     }
     return render(request, "create_bio.html", context)
 
+# delete
+def delete_post(request,pk):
+    if(request.user.pk != Post.objects.get(pk=pk).created_by.pk):
+        return HttpResponseRedirect("/")
+    
+    if request.method == "POST":
+        Post.objects.get(pk=pk).delete()
+        return HttpResponseRedirect(reverse('profile_detail',args=[request.user.pk]))
+
+# delete
+def delete_reply(request,pk):
+    mother_post = Reply.objects.get(pk=pk).post
+
+    if(request.user.pk != Reply.objects.get(pk=pk).created_by.pk):
+        return HttpResponseRedirect("/")
+    
+    if request.method == "POST":
+        Reply.objects.get(pk=pk).delete()
+        return HttpResponseRedirect(reverse('post_detail',args=[mother_post.pk]))
+
 # likes
 def post_like(request, pk):
     if request.user.is_authenticated is False:
