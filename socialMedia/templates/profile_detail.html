@@ -12,10 +12,15 @@
 
         {% if user == profile.user %}
             <h2 style="display: inline;">my profile</h2>
-            <br>
         {% else %}
             <h2 style="display: inline;">{{profile.user}}'s profile</h2>    
         {% endif %}
+
+        {% include 'components/follow.html' %}
+        <br>
+        <b style="margin-top: 0;" id="fc{{profile.pk}}" >{{profile.followers.all.count}} followers </b>
+
+
 
         <h3>about me:</h3>
         {% if user == profile.user %}

@@ -39,17 +39,21 @@ class ReplyLike(models.Model):
         constraints = [
             models.UniqueConstraint(fields=['created_by', 'reply'], name="unique_reply_like"),
         ]
+
+class Follow(models.Model):
+    follow_to = models.ForeignKey("UserProfile", on_delete=models.CASCADE,related_name='followers')
+    created_by = models.ForeignKey("UserProfile", on_delete=models.CASCADE)
     
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['created_by', 'follow_to'], name="unique_follow"),
+        ]
+
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     profile_picture = models.ImageField(default="placeholders/fpfPlaceholder.png")
     bio_picture = models.ImageField(default="placeholders/bioPlaceholder.png")
-    follows = models.ManyToManyField(
-        "self",
-        related_name="followed_by",
-        symmetrical=False,
-        blank=True
-    )
+
     def __str__(self):
         return self.user.username
 

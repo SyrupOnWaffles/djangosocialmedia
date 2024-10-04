@@ -1,5 +1,5 @@
 from django.contrib import admin
-from socialMedia.models import Post, UserProfile, Reply, Like, ReplyLike
+from socialMedia.models import Post, UserProfile, Reply, Like, ReplyLike, Follow
 # Register your models here.
 
 
@@ -16,6 +16,9 @@ class ReplyAdmin(admin.ModelAdmin):
 class LikeAdmin(admin.ModelAdmin):
     pass
 
+class FollowAdmin(admin.ModelAdmin):
+    pass
+
 class ReplyLikeAdmin(admin.ModelAdmin):
     pass
 
@@ -26,3 +29,4 @@ admin.site.register(UserProfile, UserProfileAdmin)
 admin.site.register(Reply, ReplyAdmin)
 admin.site.register(Like, LikeAdmin)
 admin.site.register(ReplyLike, ReplyLikeAdmin)
+admin.site.register(Follow, FollowAdmin)

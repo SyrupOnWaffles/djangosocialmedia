@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect, HttpResponse
 from django.urls import reverse
 from django.db.models import Count
 from django.core.paginator import Paginator
-from socialMedia.models import Post, UserProfile, Reply, Like, ReplyLike
+from socialMedia.models import Post, UserProfile, Reply, Like, ReplyLike, Follow
 from socialMedia.forms import CanvasForm
 from django.db.models.functions import Now
 import urllib.request
@@ -220,6 +220,25 @@ def delete_reply(request,pk):
     if request.method == "POST":
         Reply.objects.get(pk=pk).delete()
         return HttpResponseRedirect(reverse('post_detail',args=[mother_post.pk]))
+
+# follows
+def profile_follow(request, pk):
+    if request.user.is_authenticated is False:
+        return HttpResponseRedirect("/")
+    
+    if request.method == "POST":
+        if request.user.is_authenticated is True:
+            if request.user.pk != pk:
+                query = Follow.objects.filter(created_by=request.user.pk)
+                if query.exists():
+                    query.delete()
+                else:
+                    Follow.objects.create(follow_to=UserProfile.objects.get(pk=pk),created_by=UserProfile.objects.get(pk=request.user.pk))
+                next = request.POST.get('next', '/')
+                return HttpResponseRedirect(next)
+
+def profile_get_followers(request, pk):
+    return HttpResponse(UserProfile.objects.get(pk=pk).followers.count())
 
 # likes
 def post_like(request, pk):

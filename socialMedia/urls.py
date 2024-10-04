@@ -18,6 +18,10 @@ urlpatterns = [
     path('post/<int:pk>/',views.post_detail,name="post_detail"),
     path('profile/<int:pk>/',views.profile_detail,name="profile_detail"),
 
+    # follows
+    path('profile/follow/<int:pk>/',views.profile_follow,name="profile_follow"),
+    path('profile/get/followers/<int:pk>',views.profile_get_followers,name="profile_get_followers"),
+
     # likes
     path('post/like/<int:pk>/',views.post_like,name="post_like"),
     path('post/get/likes/<int:pk>',views.post_get_likes,name="post_get_likes"),
