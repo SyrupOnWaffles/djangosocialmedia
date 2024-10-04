@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+    <h2>profile search</h2>
+    <div style="margin-top: 0;" class="zig-zag-line"></div>
+    
+    {% if follows %}
+        {% for follow in follows %}
+            <h4>
+                <a href="{% url 'profile_detail' follow.created_by.pk%}"><img style="height: 55px; border-style: none;vertical-align: middle;" src="/media/{{follow.created_by.profile_picture}}" alt="body image"></a>
+                <a href="{% url 'profile_detail' follow.created_by.pk%}">{{ follow.created_by }}</a>
+                {% include 'components/follow.html' %}
+                <br>
+                <small style="margin-top: 0;" id="fc{{follow.created_by.pk}}" >{{follow.created_by.followers.all.count}} followers </small>
+            </h4>
+        {% endfor %}
+    {% else %}
+        <h4> there are no profiles that match that search bud</h4>
+    {% endif %}
+    {% include "components/page.html" %}
+    
+{% endblock page_content %}

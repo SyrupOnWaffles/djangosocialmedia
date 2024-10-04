@@ -36,16 +36,15 @@ def profile_followers(request, pk):
     if('page' in parsed_url):
         page=parsed_url['page'][0]
     
-    print(UserProfile.objects.get(pk=pk).followers.all())
-    profiles = UserProfile.objects.filter(pk=pk)
-    profiles = Paginator(profiles, 100)
+    follows = UserProfile.objects.get(pk=pk).followers.all()
+    follows = Paginator(follows, 100)
 
     context = {
         "page" : page,
-        "max_page" : profiles.num_pages,
-        "profiles": profiles.page(page),
+        "max_page" : follows.num_pages,
+        "follows": follows.page(page),
     }
-    return render(request, "profile_search.html", context)
+    return render(request, "profile_followers.html", context)
 
 
 # post displays
