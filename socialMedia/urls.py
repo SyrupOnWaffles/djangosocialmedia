@@ -31,4 +31,5 @@ urlpatterns = [
 
     # search
     path('search/<username>/',views.profile_search,name="profile_search"),
+    path('profile/followers/<int:pk>/',views.profile_followers,name="profile_followers"),
 ]

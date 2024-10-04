@@ -29,6 +29,25 @@ def profile_search(request, username):
     }
     return render(request, "profile_search.html", context)
 
+def profile_followers(request, pk):
+    page=1
+
+    parsed_url = parse_qs(urlparse(request.build_absolute_uri()).query)    
+    if('page' in parsed_url):
+        page=parsed_url['page'][0]
+    
+    print(UserProfile.objects.get(pk=pk).followers.all())
+    profiles = UserProfile.objects.filter(pk=pk)
+    profiles = Paginator(profiles, 100)
+
+    context = {
+        "page" : page,
+        "max_page" : profiles.num_pages,
+        "profiles": profiles.page(page),
+    }
+    return render(request, "profile_search.html", context)
+
+
 # post displays
 def post_detail(request, pk):
     order_by="-like_count"
@@ -210,7 +229,6 @@ def delete_post(request,pk):
         Post.objects.get(pk=pk).delete()
         return HttpResponseRedirect(reverse('profile_detail',args=[request.user.pk]))
 
-# delete
 def delete_reply(request,pk):
     mother_post = Reply.objects.get(pk=pk).post
 
@@ -229,7 +247,7 @@ def profile_follow(request, pk):
     if request.method == "POST":
         if request.user.is_authenticated is True:
             if request.user.pk != pk:
-                query = Follow.objects.filter(created_by=request.user.pk)
+                query = Follow.objects.filter(created_by=request.user.pk,follow_to=pk)
                 if query.exists():
                     query.delete()
                 else:
