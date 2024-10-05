@@ -20,7 +20,7 @@ def profile_search(request, username):
         page=parsed_url['page'][0]
     
     profiles = UserProfile.objects.filter(user__username__contains=username)
-    profiles = Paginator(profiles, 100)
+    profiles = Paginator(profiles.annotate(follower_count=Count('followers')).order_by("-follower_count"), 100)
 
     context = {
         "page" : page,
@@ -28,24 +28,6 @@ def profile_search(request, username):
         "profiles": profiles.page(page),
     }
     return render(request, "profile_search.html", context)
-
-def profile_followers(request, pk):
-    page=1
-
-    parsed_url = parse_qs(urlparse(request.build_absolute_uri()).query)    
-    if('page' in parsed_url):
-        page=parsed_url['page'][0]
-    
-    follows = UserProfile.objects.get(pk=pk).followers.all()
-    follows = Paginator(follows, 100)
-
-    context = {
-        "page" : page,
-        "max_page" : follows.num_pages,
-        "follows": follows.page(page),
-    }
-    return render(request, "profile_followers.html", context)
-
 
 # post displays
 def post_detail(request, pk):
