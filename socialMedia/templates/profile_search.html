@@ -6,13 +6,7 @@
 
     {% if profiles %}
         {% for profile in profiles %}
-            <h4>
-                <a href="{% url 'profile_detail' profile.pk%}"><img style="height: 55px; border-style: none;vertical-align: middle;" src="/media/{{profile.profile_picture}}" alt="body image"></a>
-                <a href="{% url 'profile_detail' profile.pk%}">{{ profile }}</a>
-                <br>
-                <small style="margin-top: 0;" id="fc{{profile.pk}}" >{{profile.followers.all.count}} followers </small>
-            </h4>
-            
+            {% include 'components/big_profile_card.html' %}
         {% endfor %}
     {% else %}
         <h4> there are no profiles that match that search bud</h4>

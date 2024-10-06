@@ -1,0 +1,25 @@
+<!-- made for searching -->
+<div style="margin-top: 3rem;margin-bottom: 3rem;">
+    <a href="{% url 'profile_detail' profile.pk%}"><img style="height: 55px; border-style: none;vertical-align: middle;" src="/media/{{profile.profile_picture}}" alt="body image"></a>
+
+    {% if user == profile.user %}
+        <a href="{% url 'profile_detail' profile.pk%}"><h2 style="display: inline;">my profile</h2></a>
+    {% else %}
+        <a href="{% url 'profile_detail' profile.pk%}"><h2 style="display: inline;">{{profile.user}}'s profile</h2></a>    
+    {% endif %}
+
+    {% if user.is_authenticated %}
+        {% if profile.user != user %}
+            {% load filters %}
+            <button style="display: inline;float: right;" onclick="follow('{% url 'profile_follow' profile.pk %}','{% url 'profile_get_followers' profile.pk %}',{{profile.pk}},'{{ csrf_token }}')" id="f{{profile.pk}}">    
+                {% if profile.followers.all|dasame:user.pk %}
+                unfollow
+                {% else %}
+                follow
+                {% endif %}
+            </button>
+        {% endif %}
+    {% endif %}
+    <br>
+    <b style="margin-top: 0;" id="fc{{profile.pk}}" >{{profile.followers.all.count}} followers </b>        
+</div>
