@@ -6,8 +6,6 @@
         <h4>
             <a href="{% url 'profile_detail' reply.created_by.pk%}"><img style="height: 55px; border-style: none;vertical-align: middle;" src="/media/{{reply.created_by.profile_picture}}" alt="body image"></a>
             <a href="{% url 'profile_detail' reply.created_by.pk%}">{{ reply.created_by }}</a>
-            <br>
-            <small id="fc{{profile.pk}}" >{{post.created_by.followers.all.count}} followers </small>
         </h4>
 
         <b>{{ reply.created_on|timesince}} ago</b>
