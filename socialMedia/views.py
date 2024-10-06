@@ -8,6 +8,7 @@ from socialMedia.forms import CanvasForm
 from django.db.models.functions import Now
 import urllib.request
 import random
+import os
 import string
 from urllib.parse import urlparse, parse_qs
 
@@ -207,7 +208,11 @@ def delete_post(request,pk):
         return HttpResponseRedirect("/")
     
     if request.method == "POST":
-        Post.objects.get(pk=pk).delete()
+        post = Post.objects.get(pk=pk)        
+        if(os.path.exists(f'media/{post.body}')):
+            os.remove(f'media/{post.body}')
+        
+        post.delete()
         return HttpResponseRedirect(reverse('profile_detail',args=[request.user.pk]))
 
 def delete_reply(request,pk):
@@ -217,7 +222,10 @@ def delete_reply(request,pk):
         return HttpResponseRedirect("/")
     
     if request.method == "POST":
-        Reply.objects.get(pk=pk).delete()
+        reply = Reply.objects.get(pk=pk)
+        if(os.path.exists(f'media/{reply.body}')):
+            os.remove(f'media/{reply.body}')
+        reply.delete()
         return HttpResponseRedirect(reverse('post_detail',args=[mother_post.pk]))
 
 # follows

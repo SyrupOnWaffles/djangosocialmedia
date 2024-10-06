@@ -41,6 +41,7 @@ document.addEventListener("touchstart", setPosition);
 document.addEventListener("touchmove", draw);
 document.addEventListener("touchmove", setPosition);
 
+
 function save() {
     if(isCanvasBlank(canvas)==false){
       document.getElementById('my_hidden').value = canvas.toDataURL('image/png');
