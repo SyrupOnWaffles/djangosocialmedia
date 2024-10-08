@@ -12,6 +12,13 @@ import os
 import string
 from urllib.parse import urlparse, parse_qs
 
+# settings
+def account_settings(request):
+    # context = {
+    #     "profiles": profiles.page(page),
+    # }
+    return render(request, "account_settings.html")
+
 # search
 def profile_search(request, username):
     page=1
