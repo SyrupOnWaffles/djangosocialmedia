@@ -5,7 +5,7 @@ var ctx = canvas.getContext("2d");
 // initialize position as 0,0
 var pos = { x: 0, y: 0 };
 var lineWidth = 20;
-var color = "#FFFFFF";
+ctx .strokeStyle = "#FFFFFF";
 
 // new position from mouse events
 function setPosition(e) {
@@ -22,7 +22,7 @@ function draw(e) {
 
   ctx.lineWidth = lineWidth; // width of line
   ctx.lineCap = "round"; // rounded end cap
-  ctx.strokeStyle = color; // hex color of line
+   // hex color of line
 
   ctx.moveTo(pos.x, pos.y); // from position
   setPosition(e);
@@ -54,7 +54,7 @@ function changeSize(size){
 }
 
 function changeColor(colour){
-  color = colour
+  ctx.strokeStyle = colour;
 }
 
 function clearCanvas(){
