@@ -11,6 +11,7 @@ import random
 import os
 import string
 from urllib.parse import urlparse, parse_qs
+from django.core.mail import send_mail
 
 # settings
 def account_settings(request):
@@ -113,6 +114,7 @@ def profile_detail(request, pk):
     return render(request, "profile_detail.html", context)
 
 def post_homepage(request):
+    
     page=1
     order_by="-like_count"
     url_sort_by="best"
