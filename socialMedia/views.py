@@ -263,13 +263,16 @@ def post_like(request, pk):
     
     if request.method == "POST":
         if request.user.is_authenticated is True:
+            heart=""
             query = Like.objects.filter(post=pk,created_by=request.user.pk)
             if query.exists():
                 query.delete()
+                heart="♡"
             else:
                 Like.objects.create(post=Post.objects.get(pk=pk),created_by=UserProfile.objects.get(pk=request.user.pk))
-            next = request.POST.get('next', '/')
-            return HttpResponseRedirect(next)
+                heart="♥"
+
+            return HttpResponse(heart)
 
 def reply_like(request, pk):
     if request.user.is_authenticated is False:
@@ -277,13 +280,15 @@ def reply_like(request, pk):
     
     if request.method == "POST":
         if request.user.is_authenticated is True:
+            heart=""
             query = ReplyLike.objects.filter(reply=pk,created_by=request.user.pk)
             if query.exists():
                 query.delete()
+                heart="♡"
             else:
                 ReplyLike.objects.create(reply=Reply.objects.get(pk=pk),created_by=UserProfile.objects.get(pk=request.user.pk))
-            next = request.POST.get('next', '/')
-            return HttpResponseRedirect(next)
+                heart="♥"
+            return HttpResponse(heart)
 
 def post_get_likes(request, pk):
     return HttpResponse(Post.objects.get(pk=pk).likes.count())
