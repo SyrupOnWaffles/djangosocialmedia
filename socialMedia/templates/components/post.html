@@ -1,7 +1,7 @@
 {% load static %}
 {% load filters %}
 
-<div class="post" x-data="{likes : {{post.likes.all.count}}, replys : {{post.replys.all.count}}}">
+<div class="post">
     <div>
         <h4>
             <a href="{% url 'profile_detail' post.created_by.pk%}"><img style="height: 55px; border-style: none;vertical-align: middle;" src="/media/{{post.created_by.profile_picture}}" alt="body image"></a>
@@ -13,22 +13,20 @@
 
 {% comment %} onclick="like('{% url 'post_like' post.pk %}','{% url 'post_get_likes' post.pk %}',{{post.pk}},'{{ csrf_token }}')" {% endcomment %}
     {% if user.is_authenticated %}
-        <button hx-post="{% url 'post_like' post.pk %}" hx-get="{% url 'post_get_likes' post.pk %}" hx-target="#like-count"> 
-            <div ><div>   
-            {% if post.likes.all|dasame:user.pk %}
-                ♥
-            {% else %}
-                ♡
-            {% endif %}
-        </button>
+            <button hx-post="{% url 'post_like' post.pk %}">
+                {% if post.likes.all|dasame:user.pk %}
+                    ♥
+                {% else %}
+                    ♡
+                {% endif %}
+            </button>
     {% else %}
         <form style="display: inline;" method="post" action="{% url 'login' %}">
             {% csrf_token %}
             <button type="submit">♡</button>
         </form> 
     {% endif %}
-    <h4 id="pl{{post.pk}}" style="display: inline"> <span id="like-count" x-text="likes"></span> likes • <span x-text="replys"></span> replys</h4>
-
+    <h4 style="display: inline"> <span id='like-count' x-text="likes">{{post.likes.all.count}}</span> likes • <span x-text="replys">{{post.replys.all.count}}</span> replys</h4>
     {% if user.pk == post.created_by.pk %}
         <form style="display: inline; float:right;" method="POST" action="{% url 'delete_post' post.pk %}">
             {% csrf_token %}

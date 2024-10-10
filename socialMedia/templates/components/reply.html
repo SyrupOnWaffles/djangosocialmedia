@@ -7,26 +7,26 @@
             <a href="{% url 'profile_detail' reply.created_by.pk%}"><img style="height: 55px; border-style: none;vertical-align: middle;" src="/media/{{reply.created_by.profile_picture}}" alt="body image"></a>
             <a href="{% url 'profile_detail' reply.created_by.pk%}">{{ reply.created_by }}</a>
         </h4>
-
         <b>{{ reply.created_on|timesince}} ago</b>
         <div class="photo"><img class="art" src="/media/{{reply.body.name }}" alt="body image"></div>
     </div>
 
     {% if user.is_authenticated %}
-        <button onclick="reply_like('{% url 'reply_like' reply.pk %}','{% url 'reply_get_likes' reply.pk %}',{{reply.pk}},'{{ csrf_token }}')" id="r{{reply.pk}}">    
-            {% if reply.reply_likes.all|dasame:user.pk %}
-                ♥
-            {% else %}
-                ♡
-            {% endif %}
-        </button>
+    <button hx-post="{% url 'reply_like' reply.pk %}">
+        {% if reply.reply_likes.all|dasame:user.pk %}
+            ♥
+        {% else %}
+            ♡
+        {% endif %}
+    </button>
     {% else %}
         <form style="display: inline;" method="reply" action="{% url 'login' %}">
             {% csrf_token %}
             <button type="submit">♡</button>
         </form> 
     {% endif %}
-    <h4 id="rl{{reply.pk}}" style="display: inline">{{reply.reply_likes.all.count}} likes</h4>
+    <h4 style="display: inline"> <span id='reply-like-count' x-text="reply_likes">{{reply.reply_likes.all.count}}</span> likes</h4>
+
 
     {% if user.pk == reply.created_by.pk %}
         <form style="display: inline; float:right;" method="POST" action="{% url 'delete_reply' reply.pk %}">
