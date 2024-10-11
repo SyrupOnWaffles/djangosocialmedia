@@ -20,11 +20,11 @@
 
     {% if replys %}
         {% for reply in replys %}
-            {% include 'components/reply.html' %}
-        {% endfor %}
-    {% else %}
-        {% if user == post.created_by.user %}
-            <h4> no one replied to your post yet. sad</h4>
+                    {% include 'components/reply.html' %}
+                {% endfor %}
+            {% else %}
+                {% if user == post.created_by.user %}
+                    <h4> no one replied to your post yet. sad</h4>
         {% else %}
             <h4> no one replied to this post yet. you can change that</h4>
         {% endif %}

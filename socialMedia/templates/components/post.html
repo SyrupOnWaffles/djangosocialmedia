@@ -30,7 +30,6 @@
         <form style="display: inline; float:right;" method="POST" action="{% url 'delete_post' post.pk %}" x-data="{confirmed : false}">
             {% csrf_token %}
             <button type="button" x-on:click="confirmed = true" x-show="!confirmed" >delete</button>
-
             <button type="submit" x-show="confirmed">are you shure?</button>
         </form>
     {% endif %}
