@@ -31,15 +31,15 @@ function draw(e) {
   ctx.stroke(); // draw it!
 }
 
-document.addEventListener("mousemove", draw);
-document.addEventListener("mousedown", setPosition);
-document.addEventListener("mousedown", draw);
-document.addEventListener("mouseenter", setPosition);
+canvas.addEventListener("mousemove", draw);
+canvas.addEventListener("mousedown", setPosition);
+canvas.addEventListener("mousedown", draw);
+canvas.addEventListener("mouseenter", setPosition);
 
-document.addEventListener("touchstart", draw);
-document.addEventListener("touchstart", setPosition);
-document.addEventListener("touchmove", draw);
-document.addEventListener("touchmove", setPosition);
+canvas.addEventListener("touchstart", draw);
+canvas.addEventListener("touchstart", setPosition);
+canvas.addEventListener("touchmove", draw);
+canvas.addEventListener("touchmove", setPosition);
 
 
 function save() {

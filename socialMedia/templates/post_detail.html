@@ -5,10 +5,12 @@
     {% include 'components/post.html' %}
 
     {% if user.is_authenticated %}
-        <details style="border:none;background:none;padding:0">
-        <summary>draw your own reply</summary>
-            {% include 'components/paint.html' %}
-        </details>
+        <div x-data="{show: false}">
+            <a href="#0"><h4 x-on:click="show=!show">draw your own reply</h4></a>
+            <div x-show="show" x-transition>
+                {% include 'components/paint.html' %}
+            </div>
+        </div>
     {% else %}
         <h4><a href="{% url 'login'%}">login</a> to reply</h4>
     {% endif %}

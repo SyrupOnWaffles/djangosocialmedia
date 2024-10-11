@@ -11,9 +11,8 @@
         <div class="photo"><a href="{% url 'post_detail' post.pk%}"> <img class="art" src="/media/{{post.body.name }}" alt="body image"></a></div>
     </div>
 
-{% comment %} onclick="like('{% url 'post_like' post.pk %}','{% url 'post_get_likes' post.pk %}',{{post.pk}},'{{ csrf_token }}')" {% endcomment %}
     {% if user.is_authenticated %}
-            <button hx-post="{% url 'post_like' post.pk %}">
+            <button hx-swap="begin" hx-post="{% url 'post_like' post.pk %}">
                 {% if post.likes.all|dasame:user.pk %}
                     ♥
                 {% else %}
@@ -26,11 +25,13 @@
             <button type="submit">♡</button>
         </form> 
     {% endif %}
-    <h4 style="display: inline"> <span id='like-count' x-text="likes">{{post.likes.all.count}}</span> likes • <span x-text="replys">{{post.replys.all.count}}</span> replys</h4>
+    <h4 style="display: inline"> <span id='like-count' id="likes">{{post.likes.all.count}}</span> likes • <span x-text="replys">{{post.replys.all.count}}</span> replys</h4>
     {% if user.pk == post.created_by.pk %}
-        <form style="display: inline; float:right;" method="POST" action="{% url 'delete_post' post.pk %}">
+        <form style="display: inline; float:right;" method="POST" action="{% url 'delete_post' post.pk %}" x-data="{confirmed : false}">
             {% csrf_token %}
-            <button width="200%" class="code" onsubmit="return false" type="submit">delete</button>
+            <button type="button" x-on:click="confirmed = true" x-show="!confirmed" >delete</button>
+
+            <button type="submit" x-show="confirmed">are you shure?</button>
         </form>
     {% endif %}
 

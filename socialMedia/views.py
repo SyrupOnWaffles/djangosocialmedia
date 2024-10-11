@@ -244,14 +244,16 @@ def profile_follow(request, pk):
     
     if request.method == "POST":
         if request.user.is_authenticated is True:
+            follow=""
             if request.user.pk != pk:
                 query = Follow.objects.filter(created_by=request.user.pk,follow_to=pk)
                 if query.exists():
                     query.delete()
+                    follow="follow"
                 else:
                     Follow.objects.create(follow_to=UserProfile.objects.get(pk=pk),created_by=UserProfile.objects.get(pk=request.user.pk))
-                next = request.POST.get('next', '/')
-                return HttpResponseRedirect(next)
+                    follow="unfollow"
+                return HttpResponse(follow)
 
 def profile_get_followers(request, pk):
     return HttpResponse(UserProfile.objects.get(pk=pk).followers.count())

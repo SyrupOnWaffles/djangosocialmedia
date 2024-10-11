@@ -3,33 +3,7 @@
 {% block page_content %}
     <!-- {% load static %}
     <img src="/media/{{post.body.name }}" alt="body image"> -->
-    <div style="margin-top: 3rem;margin-bottom: 3rem;">
-        {% if user == profile.user %}
-            <a href="{% url 'create_pfp' %}"><img style="height: 55px; border-style: none;vertical-align: middle;" src="/media/{{profile.profile_picture}}" alt="body image"></a>  
-        {% else %}
-            <img style="height: 55px; border-style: none;vertical-align: middle;" src="/media/{{profile.profile_picture}}" alt="body image">  
-        {% endif %}
-
-        {% if user == profile.user %}
-            <h2 style="display: inline;">my profile</h2>
-        {% else %}
-            <h2 style="display: inline;">{{profile.user}}'s profile</h2>    
-        {% endif %}
-
-        {% if user.is_authenticated %}
-            {% if profile.user != user %}
-                {% load filters %}
-                <button style="display: inline;float: right;" onclick="follow('{% url 'profile_follow' profile.pk %}','{% url 'profile_get_followers' profile.pk %}',{{profile.pk}},'{{ csrf_token }}')" id="f{{profile.pk}}">    
-                    {% if profile.followers.all|dasame:user.pk %}
-                    unfollow
-                    {% else %}
-                    follow
-                    {% endif %}
-                </button>
-            {% endif %}
-        {% endif %}
-        <br>
-        <b style="margin-top: 0;" id="fc{{profile.pk}}" >{{profile.followers.all.count}} followers </b>
+         {% include 'components/big_profile_card.html' %}
 
         <h3>about me:</h3>
         {% if user == profile.user %}
@@ -38,7 +12,6 @@
             <div class="photo"><img class="art" style="width: 100%; vertical-align: middle;" src="/media/{{profile.bio_picture}}" alt="body image"></div>
         {% endif %}
 
-    </div>
     <div class="zig-zag-line"></div>
 
     <h2 style="margin: 1rem 0 1rem 0;">my posts</h2>
