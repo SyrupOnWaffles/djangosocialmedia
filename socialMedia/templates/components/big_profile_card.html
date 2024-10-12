@@ -1,6 +1,6 @@
 <!-- made for searching -->
 <div style="margin-top: 3rem;">
-    <a href="{% url 'profile_detail' profile.pk%}"><img style="height: 55px; border-style: none;vertical-align: middle;" src="/media/{{profile.profile_picture}}" alt="body image"></a>
+    <a href="{% url 'profile_detail' profile.pk%}"><img style="height: 55px; border-style: none;vertical-align: middle;" src="/media/{{profile.profile_picture}}" ></a>
 
     {% if user == profile.user %}
         <a href="{% url 'profile_detail' profile.pk%}"><h2 style="display: inline;">my profile</h2></a>
@@ -22,5 +22,5 @@
         {% endif %}
     {% endif %}
     <br>
-    <b style="margin-top: 0;" id="fc{{profile.pk}}" >{{profile.followers.all.count}} followers </b>        
+    <b id="fc{{profile.pk}}" >{{profile.followers.all.count}} followers </b>        
 </div>

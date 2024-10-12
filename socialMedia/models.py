@@ -50,7 +50,7 @@ class Follow(models.Model):
         ]
 
 class UserProfile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.OneToOneField(User, on_delete=models.CASCADE,related_name='profile')
     profile_picture = models.ImageField(default="placeholders/fpfPlaceholder.png")
     bio_picture = models.ImageField(default="placeholders/bioPlaceholder.png")
 

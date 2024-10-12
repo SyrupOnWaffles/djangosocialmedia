@@ -4,11 +4,11 @@
 <div class="post">
     <div>
         <h4>
-            <a href="{% url 'profile_detail' post.created_by.pk%}"><img style="height: 55px; border-style: none;vertical-align: middle;" src="/media/{{post.created_by.profile_picture}}" alt="body image"></a>
+            <a href="{% url 'profile_detail' post.created_by.pk%}"><img style="height: 55px; border-style: none;vertical-align: middle;" src="/media/{{post.created_by.profile_picture}}" ></a>
             <a href="{% url 'profile_detail' post.created_by.pk%}">{{ post.created_by }}</a>
         </h4>
         <b>{{ post.created_on|timesince}} ago</b>
-        <div class="photo"><a href="{% url 'post_detail' post.pk%}"> <img class="art" src="/media/{{post.body.name }}" alt="body image"></a></div>
+        <div class="photo"><a href="{% url 'post_detail' post.pk%}"> <img class="art" src="/media/{{post.body.name }}" ></a></div>
     </div>
 
     {% if user.is_authenticated %}

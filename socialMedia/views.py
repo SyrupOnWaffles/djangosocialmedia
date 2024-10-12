@@ -14,11 +14,11 @@ from urllib.parse import urlparse, parse_qs
 from django.core.mail import send_mail
 
 # settings
-def account_settings(request):
+def settings(request):
     # context = {
     #     "profiles": profiles.page(page),
     # }
-    return render(request, "account_settings.html")
+    return render(request, "settings.html")
 
 # search
 def profile_search(request, username):

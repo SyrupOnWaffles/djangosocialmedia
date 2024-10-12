@@ -4,7 +4,7 @@ from . import views
 
 urlpatterns = [
     # settings
-    path("settings/", views.account_settings, name="account_settings"),
+    path("settings/", views.settings, name="settings"),
 
     # draw
     path('paint/',views.create_post,name="create_post"),

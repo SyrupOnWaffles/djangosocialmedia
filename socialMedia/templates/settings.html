@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block page_content %}
+    <div x-data="{show: false}">
+        <a href="#profile_settings"><h2 x-on:click="show=!show">profile settings</h2></a>
+            <div  x-show="show" x-transition>
+                <ul>
+                    <li><a href={% url 'create_bio' %}><h3>draw new bio picture<h3><img class="art" style="width: 50%;" src="/media/{{user.profile.bio_picture}}"></a></li>
+                    <li><a href={% url 'create_pfp' %}><h3>draw new profile picture<h3><img class="art" style="width: 50%;" src="/media/{{user.profile.profile_picture}}"></a></li>
+                </ul>
+            </div>
+    <div>
+    <h2>theme settings</h2>
+
+    <div x-data="{show: false}">
+        <a href="#account_settings"><h2 x-on:click="show=!show">account settings</h2></a>
+            <div  x-show="show" x-transition>
+                <ul>
+                    <li><a href={% url 'password_change' %}><h3>change password</h3></a></li>
+                </ul>
+            </div>
+    <div>
+    
+{% endblock page_content %}

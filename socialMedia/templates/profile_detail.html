@@ -2,15 +2,11 @@
 
 {% block page_content %}
     <!-- {% load static %}
-    <img src="/media/{{post.body.name }}" alt="body image"> -->
+    <img src="/media/{{post.body.name }}" > -->
          {% include 'components/big_profile_card.html' %}
 
         <h3>about me:</h3>
-        {% if user == profile.user %}
-            <div class="photo"><a href="{% url 'create_bio' %}"><img class="art" style="width: 100%; vertical-align: middle;" src="/media/{{profile.bio_picture}}" alt="body image"></a></div>
-        {% else %}
-            <div class="photo"><img class="art" style="width: 100%; vertical-align: middle;" src="/media/{{profile.bio_picture}}" alt="body image"></div>
-        {% endif %}
+        <div class="photo"><img class="art" style="width: 100%; vertical-align: middle;" src="/media/{{profile.bio_picture}}" ></div>
 
     <div class="zig-zag-line"></div>
 
