@@ -268,10 +268,10 @@ def post_like(request, pk):
             query = Like.objects.filter(post=pk,created_by=request.user.pk)
             if query.exists():
                 query.delete()
-                heart="♡"
+                heart="<i class='bi bi-star'></i>"
             else:
                 Like.objects.create(post=Post.objects.get(pk=pk),created_by=UserProfile.objects.get(pk=request.user.pk))
-                heart="♥"
+                heart="<i class='bi bi-star-fill'></i>"
 
             return HttpResponse(heart)
 
@@ -285,10 +285,10 @@ def reply_like(request, pk):
             query = ReplyLike.objects.filter(reply=pk,created_by=request.user.pk)
             if query.exists():
                 query.delete()
-                heart="♡"
+                heart="<i class='bi bi-star'></i>"
             else:
                 ReplyLike.objects.create(reply=Reply.objects.get(pk=pk),created_by=UserProfile.objects.get(pk=request.user.pk))
-                heart="♥"
+                heart="<i class='bi bi-star-fill'></i>"
             return HttpResponse(heart)
 
 def post_get_likes(request, pk):

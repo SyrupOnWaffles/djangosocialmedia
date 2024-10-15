@@ -14,15 +14,15 @@
     {% if user.is_authenticated %}
             <button hx-swap="begin" hx-post="{% url 'post_like' post.pk %}">
                 {% if post.likes.all|dasame:user.pk %}
-                    ♥
+                <i class="bi bi-star-fill"></i>
                 {% else %}
-                    ♡
+                <i class="bi bi-star"></i>
                 {% endif %}
             </button>
     {% else %}
         <form style="display: inline;" method="post" action="{% url 'login' %}">
             {% csrf_token %}
-            <button type="submit">♡</button>
+            <button type="submit"><i class="bi bi-star"></i></button>
         </form> 
     {% endif %}
     <h4 style="display: inline"> <span id='like-count' id="likes">{{post.likes.all.count}}</span> likes • <span x-text="replys">{{post.replys.all.count}}</span> replys</h4>
