@@ -36,7 +36,7 @@
                 
                 <form style="display: inline;margin: 0 .5rem 1rem;" method="post" action="{% url 'logout' %}">
                     {% csrf_token %}
-                    <button type="submit"><i class="bi bi-box-arrow-left"></i> log out</button>
+                    <button type="submit"><i class="bi bi-door-open-fill"></i> log out</button>
                 </form>
             
             {% else %}
@@ -56,7 +56,7 @@
         {% block page_content %}{% endblock page_content %}
     </main>
     <footer>
-        <p>made by <a href="https://github.com/SyrupOnWaffles/">syruponwaffles</a><br>
+        <p>made by <a href="https://github.com/SyrupOnWaffles/"><i class="bi bi-github"></i> syruponwaffles</a><br>
         copyright © 2024 </p>
     </footer>
 </body>
