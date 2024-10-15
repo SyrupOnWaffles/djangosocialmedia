@@ -3,5 +3,9 @@
 {% block page_content %}
 <h2>draw a new profile picture</h2>
 {% include 'components/paint.html' %}
-
+<br>
+<figure>
+    <img class="art" src="/media/{{user.profile.profile_picture}}">
+    <figcaption> current pfp</figcaption>
+<figure>
 {% endblock page_content %}

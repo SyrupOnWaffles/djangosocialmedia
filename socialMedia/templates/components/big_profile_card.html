@@ -5,7 +5,7 @@
     {% if user == profile.user %}
         <a href="{% url 'profile_detail' profile.pk%}"><h2 style="display: inline;">my profile</h2></a>
     {% else %}
-        <a href="{% url 'profile_detail' profile.pk%}"><h2 style="display: inline;">{{profile.user}}'s profile</h2></a>    
+        <a href="{% url 'profile_detail' profile.pk%}"><h2 style="display: inline;">{{profile.user|truncatechars:20}}'s profile</h2></a>    
     {% endif %}
 
     {% if user.is_authenticated %}

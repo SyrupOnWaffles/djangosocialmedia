@@ -39,10 +39,8 @@
                 </form>
             
             {% else %}
-                <form style="display: inline;" method="post" action="{% url 'login' %}">
-                    {% csrf_token %}
-                    <button type="submit">log in</button>
-                </form>
+                <a href="{% url 'login'%}">login</a>
+
                 <form style="display: inline;" method="post" action="{% url 'signup' %}">
                     {% csrf_token %}
                     <button type="submit">sign up</button>
@@ -50,7 +48,6 @@
             {% endif %}
 
 
-            {% comment %} <a href="{% url 'home'%}">About</a> {% endcomment %}
         </nav>
         <h1>drawing social media</h1>
     </header>

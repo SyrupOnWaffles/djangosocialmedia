@@ -5,7 +5,7 @@
     <div>
         <h4>
             <a href="{% url 'profile_detail' post.created_by.pk%}"><img style="height: 55px; border-style: none;vertical-align: middle;" src="/media/{{post.created_by.profile_picture}}" ></a>
-            <a href="{% url 'profile_detail' post.created_by.pk%}">{{ post.created_by }}</a>
+            <a href="{% url 'profile_detail' post.created_by.pk%}">{{ post.created_by|truncatechars:20 }}</a>
         </h4>
         <b>{{ post.created_on|timesince}} ago</b>
         <div class="photo"><a href="{% url 'post_detail' post.pk%}"> <img class="art" src="/media/{{post.body.name }}" ></a></div>
@@ -30,7 +30,7 @@
         <form style="display: inline; float:right;" method="POST" action="{% url 'delete_post' post.pk %}" x-data="{confirmed : false}">
             {% csrf_token %}
             <button type="button" x-on:click="confirmed = true" x-show="!confirmed" >delete</button>
-            <button type="submit" x-show="confirmed" x-transition>are you shure?</button>
+            <button type="submit" x-show="confirmed" >are you shure?</button>
         </form>
     {% endif %}
 

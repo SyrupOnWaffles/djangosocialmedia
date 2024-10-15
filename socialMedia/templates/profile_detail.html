@@ -20,7 +20,7 @@
     {% if posts %}
     {% else %}
         {% if user == profile.user %}
-            <h4> you have no posts yet. you can change that</h4>
+            <h4> you have no posts yet. you can <a href="{% url 'create_post' %}">change that</a></h4>
         {% else %}
             <h4> this account has no posts yet. sad</h4>
         {% endif %}

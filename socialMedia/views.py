@@ -15,9 +15,8 @@ from django.core.mail import send_mail
 
 # settings
 def settings(request):
-    # context = {
-    #     "profiles": profiles.page(page),
-    # }
+    if request.user.is_authenticated is False:
+        return HttpResponseRedirect("/")
     return render(request, "settings.html")
 
 # search

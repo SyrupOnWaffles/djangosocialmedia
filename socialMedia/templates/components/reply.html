@@ -5,7 +5,7 @@
     <div>
         <h4>
             <a href="{% url 'profile_detail' reply.created_by.pk%}"><img style="height: 55px; border-style: none;vertical-align: middle;" src="/media/{{reply.created_by.profile_picture}}" ></a>
-            <a href="{% url 'profile_detail' reply.created_by.pk%}">{{ reply.created_by }}</a>
+            <a href="{% url 'profile_detail' reply.created_by.pk%}">{{ reply.created_by|truncatechars:20 }}</a>
         </h4>
         <b>{{ reply.created_on|timesince}} ago</b>
         <div class="photo"><img class="art" src="/media/{{reply.body.name }}" ></div>
