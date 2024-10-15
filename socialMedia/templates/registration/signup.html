@@ -2,10 +2,17 @@
 
 {% block page_content %}
 <h2>sign up</h2>
-<form method="post">
+<form method="post" x-data="{ terms: false }">
   {% csrf_token %}
   {{ form }}
   <br>
-  <button type="submit">Sign Up</button>
+  <p>
+    <label>
+      <input type="checkbox" id="checkbox" x-on:click="terms = !terms">
+      I agree to not be a menace on this platform, upload images, or draw illegal shit <br> <i>if you do i have the right to delete your account</i>
+    </label>
+  </p>
+  <button disabled x-show="!terms" >Sign Up</button>
+  <button type="submit" x-show="terms" >Sign Up</button>
 </form>
 {% endblock page_content %}

@@ -5,7 +5,9 @@
 <form method="post">
   {% csrf_token %}
   {{ form }}
-  <br>
+    <label>
+      <input type="checkbox" id="checkbox" checked>forget me
+    </label>
   <button type="submit">Log In</button>
 </form>
 

@@ -1,7 +1,7 @@
 {% load static %}
 {% load filters %}
 
-<div class="post">
+<section class="post">
     <div>
         <h4>
             <a href="{% url 'profile_detail' post.created_by.pk%}"><img style="height: 55px; border-style: none;vertical-align: middle;" src="/media/{{post.created_by.profile_picture}}" ></a>
@@ -35,4 +35,4 @@
     {% endif %}
 
     <div class="zig-zag-line"></div>
-</div>
+    </section>
