@@ -6,7 +6,7 @@
 
     {% if user.is_authenticated %}
         <div x-data="{show: false}">
-            <a href="#0"><h3 x-on:click="show=!show">draw your own reply:</h3></a>
+            <a href="#0"><h3 x-on:click="show=!show"><span><i x-show="!show" class="bi bi-caret-right-fill"></i> <i x-show="show" class="bi bi-caret-down-fill"></i></span> draw your own reply:</h3></a>
             <div x-show="show" x-transition>
                 {% include 'components/paint.html' %}
             </div>
