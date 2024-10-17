@@ -39,6 +39,8 @@
 
 canvas{
     border-style: solid;
+    width: 100%;
+    touch-action: none;
 }
 
 .art{

@@ -2,7 +2,7 @@
 
 {% block page_content %}
         <div x-data="{show: true}">
-            <a href="#profile_settings"><h2 x-on:click="show=!show"><span><i x-show="!show" class="bi bi-caret-right-fill"></i> <i x-show="show" class="bi bi-caret-down-fill"></i></span> profile settings</h2></a>
+            <a href="#profile_settings" style="color : var(--text)"><h2 x-on:click="show=!show"><span><i x-show="!show" class="bi bi-caret-right-fill"></i> <i x-show="show" class="bi bi-caret-down-fill"></i></span> profile settings</h2></a>
                 <div  x-show="show" x-transition>
                     <ul>
                         <a href={% url 'create_bio' %}><h3>draw new bio picture<h3><img class="art" style="width : 50%" src="/media/{{user.profile.bio_picture}}"></a>
@@ -12,7 +12,7 @@
         </div>
 
         <div x-data="{show: true}">
-            <a href="#theme_settings"><h2 x-on:click="show=!show"><span><i x-show="!show" class="bi bi-caret-right-fill"></i> <i x-show="show" class="bi bi-caret-down-fill"></i></span> theme settings</h2></a>
+            <a href="#theme_settings" style="color : var(--text)"><h2 x-on:click="show=!show"><span><i x-show="!show" class="bi bi-caret-right-fill"></i> <i x-show="show" class="bi bi-caret-down-fill"></i></span> theme settings</h2></a>
                 <div  x-show="show" x-transition>
                     <ul>
                         <a href={% url 'create_bio' %}><h3>draw new bio picture<h3></a>
@@ -22,7 +22,7 @@
         </div>
 
         <div x-data="{show: true}">
-            <a href="#account_settings"><h2 x-on:click="show=!show"><span><i x-show="!show" class="bi bi-caret-right-fill"></i> <i x-show="show" class="bi bi-caret-down-fill"></i></span> account settings</h2></a>
+            <a href="#account_settings" style="color : var(--text)"><h2 x-on:click="show=!show"><span><i x-show="!show" class="bi bi-caret-right-fill"></i> <i x-show="show" class="bi bi-caret-down-fill"></i></span> account settings</h2></a>
                 <div  x-show="show" x-transition>
                     <ul>
                         <a href={% url 'password_change' %}><h3>change password</h3></a>

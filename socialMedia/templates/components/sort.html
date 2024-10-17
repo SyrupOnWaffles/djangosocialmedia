@@ -5,11 +5,11 @@
         {% if url_sort_by == "new" %}
             <option selected value="?sort_by=new">new</option>
             <option value="?sort_by=best">best</option>
-            <option value="?sort_by=worst">worst</option>
+            {% comment %} <option value="?sort_by=worst">worst</option> {% endcomment %}
         {%  elif url_sort_by == "best" %}
             <option value="?sort_by=new">new</option>
             <option selected value="?sort_by=best">best</option>
-            <option value="?sort_by=worst">worst</option>
+            {% comment %} <option value="?sort_by=worst">worst</option> {% endcomment %}
          {%  elif url_sort_by == "worst" %}
             <option value="?sort_by=new">new</option>
             <option value="?sort_by=best">best</option>

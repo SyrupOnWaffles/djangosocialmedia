@@ -6,9 +6,17 @@
   {% csrf_token %}
   {{ form }}
     <label>
-      <input type="checkbox" id="checkbox" checked>forget me
+      <input type="checkbox" id="checkbox" >show da password
     </label>
   <button type="submit">Log In</button>
 </form>
+
+<script type='text/javascript'>
+  $(document).ready(function(){
+      $('#checkbox').click(function(){
+          $(this).is(':checked') ? $('#id_password').attr('type', 'text') : $('#id_password').attr('type', 'password');
+      });
+  });
+</script>
 
 {% endblock page_content %}

@@ -15,6 +15,13 @@ function setPosition(e) {
     pos.y = e.clientY - rect.top;
 }
 
+function setPosition(e) {
+  let rect = canvas.getBoundingClientRect();
+
+  pos.x = e.clientX - rect.left;
+  pos.y = e.clientY - rect.top;
+}
+
 function draw(e) {
   if (e.buttons !== 1) return; // if mouse is not clicked, do not go further
 
@@ -25,6 +32,7 @@ function draw(e) {
    // hex color of line
 
   ctx.moveTo(pos.x, pos.y); // from position
+  console.log(pos)
   setPosition(e);
   ctx.lineTo(pos.x, pos.y); // to position
 
@@ -36,10 +44,26 @@ canvas.addEventListener("mousedown", setPosition);
 canvas.addEventListener("mousedown", draw);
 canvas.addEventListener("mouseenter", setPosition);
 
-canvas.addEventListener("touchstart", draw);
-canvas.addEventListener("touchstart", setPosition);
-canvas.addEventListener("touchmove", draw);
-canvas.addEventListener("touchmove", setPosition);
+canvas.addEventListener("touchstart", function (e) {
+  var touch = e.touches[0];
+  var mouseEvent = new MouseEvent("mousemove", {
+    clientX: touch.clientX,
+    clientY: touch.clientY,
+    buttons: 1
+  });
+  canvas.dispatchEvent(mouseEvent);
+}, false);
+
+canvas.addEventListener("touchmove", function (e) {
+  var touch = e.touches[0];
+  var mouseEvent = new MouseEvent("mousemove", {
+    clientX: touch.clientX,
+    clientY: touch.clientY,
+    buttons: 1
+  });
+  console.log(mouseEvent)
+  canvas.dispatchEvent(mouseEvent);
+}, false);
 
 
 function save() {
