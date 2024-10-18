@@ -32,7 +32,6 @@ function draw(e) {
    // hex color of line
 
   ctx.moveTo(pos.x, pos.y); // from position
-  console.log(pos)
   setPosition(e);
   ctx.lineTo(pos.x, pos.y); // to position
 
@@ -61,7 +60,6 @@ canvas.addEventListener("touchmove", function (e) {
     clientY: touch.clientY,
     buttons: 1
   });
-  console.log(mouseEvent)
   canvas.dispatchEvent(mouseEvent);
 }, false);
 
