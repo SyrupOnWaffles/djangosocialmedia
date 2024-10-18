@@ -153,6 +153,7 @@ def create_post(request):
         if form.is_valid():
             name = ''.join(random.choices(string.ascii_uppercase + string.digits + string.ascii_lowercase, k=64))
             response = urllib.request.urlopen(form.cleaned_data["body"])
+            print(response.file.read())
             with open(f'media/{name}.png', 'wb') as f:
                 f.write(response.file.read())
             post = Post(
