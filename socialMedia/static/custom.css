@@ -47,10 +47,6 @@ canvas{
     border-style: solid;
 }
 
-.helptext{
-    display: grid;
-}
-
-#id_remember{
+label{
     display: inline;
 }

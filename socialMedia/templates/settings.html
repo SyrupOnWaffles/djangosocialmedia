@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block head_title %}
+    Settings
+{% endblock head_title %}
+
 {% block content %}
         <div x-data="{show: true}">
             <a href="#profile_settings" style="color : var(--text)"><h2 x-on:click="show=!show"><span><i x-show="!show" class="bi bi-caret-right-fill"></i> <i x-show="show" class="bi bi-caret-down-fill"></i></span> profile settings</h2></a>

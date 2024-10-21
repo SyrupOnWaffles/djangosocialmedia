@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 
+{% block head_title %}
+    {{post.created_by}}'s post
+{% endblock head_title %}
+
 {% block content %}
 
     {% include 'components/post.html' %}

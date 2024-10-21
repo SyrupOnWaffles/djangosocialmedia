@@ -35,11 +35,11 @@
 
                 <a href="{% url 'settings'%}"><i class="bi bi-gear-fill"></i> settings</a>
 
-                <a href="{% url 'account_logout'%}"><i class="bi bi-door-open-fill"></i> log out</a>
+                <a href="{% url 'account_logout'%}"><i class="bi bi-door-open-fill"></i> sign out</a>
 
             
             {% else %}
-                <a href="{% url 'account_login'%}"><i class="bi bi-person"></i> log in</a>
+                <a href="{% url 'account_login'%}"><i class="bi bi-person"></i> sign in</a>
 
                 <form style="display: inline;margin: 0 .5rem 1rem;" method="post" action="{% url 'account_signup' %}">
                     {% csrf_token %}
