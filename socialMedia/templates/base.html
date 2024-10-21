@@ -4,8 +4,8 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>social media</title>
-    {% block page_title %}{% endblock page_title %}
+    <title>{% block head_title %}
+            {% endblock head_title %}</title>
     
     {% load static %}
     <link rel="stylesheet" href="https://cdn.simplecss.org/simple.min.css">
@@ -34,16 +34,14 @@
                 <a href="{% url 'profile_detail' user.pk %}"><i class="bi bi-person-fill"></i> {{user.username}}</a>
 
                 <a href="{% url 'settings'%}"><i class="bi bi-gear-fill"></i> settings</a>
-                
-                <form style="display: inline;margin: 0 .5rem 1rem;" method="post" action="{% url 'logout' %}">
-                    {% csrf_token %}
-                    <button type="submit"><i class="bi bi-door-open-fill"></i> log out</button>
-                </form>
+
+                <a href="{% url 'account_logout'%}"><i class="bi bi-door-open-fill"></i> log out</a>
+
             
             {% else %}
-                <a href="{% url 'login'%}"><i class="bi bi-person"></i> log in</a>
+                <a href="{% url 'account_login'%}"><i class="bi bi-person"></i> log in</a>
 
-                <form style="display: inline;margin: 0 .5rem 1rem;" method="post" action="{% url 'signup' %}">
+                <form style="display: inline;margin: 0 .5rem 1rem;" method="post" action="{% url 'account_signup' %}">
                     {% csrf_token %}
                     <button type="submit"><i class="bi bi-person-fill"></i> sign up</button>
                 </form>
@@ -54,7 +52,7 @@
         <h1>drawing social media</h1>
     </header>
     <main>
-        {% block page_content %}{% endblock page_content %}
+        {% block content %}{% endblock content %}
     </main>
     <footer>
         <p>made by <a href="https://github.com/SyrupOnWaffles/"><i class="bi bi-github"></i> syruponwaffles</a><br>

@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 
-{% block page_content %}
+{% block content %}
 
     {% include 'components/post.html' %}
 
@@ -12,7 +12,7 @@
             </div>
         </div>
     {% else %}
-        <h4><a href="{% url 'login'%}">login</a> to reply</h4>
+        <h4><a href="{% url 'account_login'%}">login</a> to reply</h4>
     {% endif %}
 
     <h3>Replies:</h3>
@@ -30,4 +30,4 @@
         {% endif %}
     {% endif %}
 
-{% endblock page_content %}
+{% endblock content %}

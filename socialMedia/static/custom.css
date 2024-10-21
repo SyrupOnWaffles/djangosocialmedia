@@ -46,3 +46,11 @@ canvas{
 .art{
     border-style: solid;
 }
+
+.helptext{
+    display: grid;
+}
+
+#id_remember{
+    display: inline;
+}

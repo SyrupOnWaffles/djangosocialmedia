@@ -20,7 +20,7 @@
         {% endif %}
     </button>
     {% else %}
-        <form style="display: inline;" method="reply" action="{% url 'login' %}">
+        <form style="display: inline;" method="reply" action="{% url 'account_login' %}">
             {% csrf_token %}
             <button type="submit"><i class="bi bi-star"></i></button>
         </form> 
