@@ -35,7 +35,6 @@ INSTALLED_APPS = [
     'django.contrib.auth',
     'django.contrib.messages',
     'socialMedia',
-    "accounts",
     
     'allauth',
     'allauth.account',
