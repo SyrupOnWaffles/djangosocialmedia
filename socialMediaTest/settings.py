@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
     'allauth.socialaccount.providers.discord',
+    'allauth.socialaccount.providers.google',
 
     'django.contrib.admin',
     'django.contrib.contenttypes',
@@ -116,7 +117,6 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend",
 )
 
-SITE_ID = 1
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
