@@ -2,11 +2,11 @@
 <div style="margin-top: 3rem;">
     <a href="{% url 'profile_detail' profile.pk%}"><img style="height: 55px; border-style: none;vertical-align: middle;" src="/media/{{profile.profile_picture}}" ></a>
 
-    {% if user == profile.user %}
-        <a href="{% url 'profile_detail' profile.pk%}"><h2 style="display: inline;">my profile</h2></a>
-    {% else %}
-        <a href="{% url 'profile_detail' profile.pk%}"><h2 style="display: inline;">{{profile.user|truncatechars:20}}'s profile</h2></a>    
-    {% endif %}
+    {% comment %} {% if user == profile.user %} {% endcomment %}
+        {% comment %} <a href="{% url 'profile_detail' profile.pk%}"><h2 style="display: inline;">my profile</h2></a> {% endcomment %}
+    {% comment %} {% else %} {% endcomment %}
+        <a href="{% url 'profile_detail' profile.pk%}"><h2 style="display: inline;">{{profile.user|truncatechars:17}}'s profile</h2></a>    
+    {% comment %} {% endif %} {% endcomment %}
 
     {% if user.is_authenticated %}
         {% if profile.user != user %}
