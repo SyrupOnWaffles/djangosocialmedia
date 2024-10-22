@@ -154,7 +154,11 @@ def create_post(request):
             name = ''.join(random.choices(string.ascii_uppercase + string.digits + string.ascii_lowercase, k=64))
             response = urllib.request.urlopen(form.cleaned_data["body"])
             with open(f'media/{name}.png', 'wb') as f:
-                f.write(response.file.read())
+                read = response.file.read() 
+                print(len(read))
+                if(len(read) > 100000):
+                    return HttpResponse(414)
+                f.write(read)
             post = Post(
                 created_by= UserProfile.objects.get(user=request.user),
                 body = f"{name}.png",
@@ -176,7 +180,11 @@ def create_pfp(request):
             name = ''.join(random.choices(string.ascii_uppercase + string.digits + string.ascii_lowercase, k=64))
             response = urllib.request.urlopen(form.cleaned_data["body"])
             with open(f'media/{name}.png', 'wb') as f:
-                f.write(response.file.read())
+                read = response.file.read() 
+                print(len(read))
+                if(len(read) > 100000):
+                    return HttpResponse(414)
+                f.write(read)
             user = UserProfile.objects.get(pk=request.user.pk)
             user.profile_picture = f"{name}.png"
             user.save()
@@ -198,7 +206,11 @@ def create_bio(request):
             name = ''.join(random.choices(string.ascii_uppercase + string.digits + string.ascii_lowercase, k=64))
             response = urllib.request.urlopen(form.cleaned_data["body"])
             with open(f'media/{name}.png', 'wb') as f:
-                f.write(response.file.read())
+                read = response.file.read() 
+                print(len(read))
+                if(len(read) > 100000):
+                    return HttpResponse(414)
+                f.write(read)
             user = UserProfile.objects.get(pk=request.user.pk)
             user.bio_picture = f"{name}.png"
             user.save()
