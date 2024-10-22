@@ -50,3 +50,10 @@ canvas{
 label{
     display: inline;
 }
+
+.helptext{
+    float: right;
+    display: block;
+    margin-top: 1rem;
+}
+
