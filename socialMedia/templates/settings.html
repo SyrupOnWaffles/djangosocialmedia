@@ -9,8 +9,8 @@
             <a href="#profile_settings" style="color : var(--text)"><h2 x-on:click="show=!show"><span><i x-show="!show" class="bi bi-caret-right-fill"></i> <i x-show="show" class="bi bi-caret-down-fill"></i></span> profile settings</h2></a>
                 <div  x-show="show" x-transition>
                     <ul>
-                        <a href={% url 'create_bio' %}><h3>draw new bio picture<h3><img  style="width : 50%" src="/media/{{user.profile.bio_picture}}"></a>
-                        <a href={% url 'create_pfp' %}><h3>draw new profile picture<h3><img  style="width : 50%" src="/media/{{user.profile.profile_picture}}"></a>
+                        <li><a href={% url 'create_bio' %}><h3>draw new bio picture</h3><img  style="width : 50%" src="/media/{{user.profile.bio_picture}}"></a></li>
+                        <li><a href={% url 'create_pfp' %}><h3>draw new profile picture</h3><img  style="width : 50%" src="/media/{{user.profile.profile_picture}}"></a></li>
                     </ul>
                 </div>
         </div>
@@ -19,7 +19,30 @@
             <a href="#theme_settings" style="color : var(--text)"><h2 x-on:click="show=!show"><span><i x-show="!show" class="bi bi-caret-right-fill"></i> <i x-show="show" class="bi bi-caret-down-fill"></i></span> theme settings</h2></a>
                 <div  x-show="show" x-transition>
                     <ul>
-                        <a href={% url 'create_bio' %}><h3>dark mode?<h3></a>
+
+                            <div x-data="{show: true}">
+                                <a href="#palettes" id="palettes" style="color : var(--text)"><h2 x-on:click="show=!show"><span><i x-show="!show" class="bi bi-caret-right-fill"></i> <i x-show="show" class="bi bi-caret-down-fill"></i></span> palettes</h2></a>
+                                    <div  x-show="show" x-transition  x-data="{ palette: $persist('endesga-16') }">
+                                        <ul>
+                                            <li><a href="#endesga-16" x-on:click="palette='endesga-16'" ><h3>endesga-16 <span x-show="palette=='endesga-16'">(selected)</span></h3><img src="https://lospec.com/palette-list/endesga-16-32x.png"></a> 
+                                                <a href="https://lospec.com/palette-list/endesga-16"> <b>by ENDESGA</b> </a>
+                                            </li>
+                                            <li><a href="#sweetie-16" x-on:click="palette='sweetie-16'" ><h3>sweetie-16 <span x-show="palette=='sweetie-16'">(selected)</span></h3><img src="https://lospec.com/palette-list/sweetie-16-32x.png"></a> 
+                                                <a href="https://lospec.com/palette-list/sweetie-16"> <b>by GrafxKid</b> </a>
+                                            </li>
+                                            <li><a href="#pico-8" x-on:click="palette='pico-8'" ><h3>pico-8 <span x-show="palette=='pico-8'">(selected)</span> </h3><img src="https://lospec.com/palette-list/pico-8-32x.png"></a> 
+                                                <a href="https://lospec.com/palette-list/pico-8"> <b>by Lexaloffle</b> </a>
+                                            </li>
+                                            <li><a href="#matriax8c" x-on:click="palette='matriax8c'" ><h3>matriax8c<span x-show="palette=='matriax8c'">(selected)</span> </h3><img src="https://lospec.com/palette-list/matriax8c-32x.png"></a> 
+                                                <a href="https://lospec.com/palette-list/matriax8c"> <b>by Davit Masia</b> </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                            </div>
+                            
+
+                        <li><a href={% url 'create_bio' %}><h3>dark mode?</h3></a></li>
+
                     </ul>
                 </div>
         </div>
@@ -28,13 +51,15 @@
             <a href="#account_settings" style="color : var(--text)"><h2 x-on:click="show=!show"><span><i x-show="!show" class="bi bi-caret-right-fill"></i> <i x-show="show" class="bi bi-caret-down-fill"></i></span> account settings</h2></a>
                 <div  x-show="show" x-transition>
                     <ul>
-                        <a href={% url 'account_email' %}><h3>manage email</h3></a>
-                        <a href={% url 'account_change_password' %}><h3>change password</h3></a>
-                        <a href={% url 'account_logout' %}><h3>sign out</h3></a>
+                        <li><a href={% url 'account_email' %}><h3>manage email</h3></a></li>
+                        <li><a href={% url 'account_change_password' %}><h3>change password</h3></a></li>
+                        <li><a href={% url 'account_logout' %}><h3>sign out</h3></a></li>
                     </ul>
                 </div>
         </div>
         
     </div>
+
+    
 
 {% endblock content %}

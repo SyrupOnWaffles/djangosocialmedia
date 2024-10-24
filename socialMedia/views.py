@@ -156,7 +156,7 @@ def create_post(request):
             with open(f'media/{name}.png', 'wb') as f:
                 read = response.file.read() 
                 print(len(read))
-                if(len(read) > 100000):
+                if(len(read) > 300000):
                     return HttpResponse(414)
                 f.write(read)
             post = Post(
@@ -182,7 +182,7 @@ def create_pfp(request):
             with open(f'media/{name}.png', 'wb') as f:
                 read = response.file.read() 
                 print(len(read))
-                if(len(read) > 100000):
+                if(len(read) > 300000):
                     return HttpResponse(414)
                 f.write(read)
             user = UserProfile.objects.get(pk=request.user.pk)
@@ -208,7 +208,7 @@ def create_bio(request):
             with open(f'media/{name}.png', 'wb') as f:
                 read = response.file.read() 
                 print(len(read))
-                if(len(read) > 100000):
+                if(len(read) > 300000):
                     return HttpResponse(414)
                 f.write(read)
             user = UserProfile.objects.get(pk=request.user.pk)

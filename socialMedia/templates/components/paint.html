@@ -1,32 +1,27 @@
-<div id="paint-div" class="noselect">
+<div id="paint-div" class="noselect" x-data="{ palette: $persist('endesga-16') }" >
 
   <!-- <input id="hex" type="color"> -->
   <!-- colors -->
-   <div id="palette">
-    <button id="color1" onclick="changeColor('#e4a672')" style="background-color: #e4a672;border-color:var(--text); width:35px;height:35px"></button>
-    <button id="color2" onclick="changeColor('#b86f50')" style="background-color: #b86f50;border-color:var(--text); width:35px;height:35px"></button>
-    <button id="color3" onclick="changeColor('#743f39')" style="background-color: #743f39;border-color:var(--text); width:35px;height:35px"></button>
-    <button id="color1" onclick="changeColor('#3f2832')" style="background-color: #3f2832;border-color:var(--text); width:35px;height:35px"></button>
-    <button id="color2" onclick="changeColor('#9e2835')" style="background-color: #9e2835;border-color:var(--text); width:35px;height:35px"></button>
-    <button id="color3" onclick="changeColor('#e53b44')" style="background-color: #e53b44;border-color:var(--text); width:35px;height:35px"></button>
-    <button id="color1" onclick="changeColor('#fb922b')" style="background-color: #fb922b;border-color:var(--text); width:35px;height:35px"></button>
-    <button id="color2" onclick="changeColor('#ffe762')" style="background-color: #ffe762;border-color:var(--text); width:35px;height:35px"></button>
-    <button id="color3" onclick="changeColor('#63c64d')" style="background-color: #63c64d;border-color:var(--text); width:35px;height:35px"></button>
-    <button id="color1" onclick="changeColor('#327345')" style="background-color: #327345;border-color:var(--text); width:35px;height:35px"></button>
-    <button id="color2" onclick="changeColor('#193d3f')" style="background-color: #193d3f;border-color:var(--text); width:35px;height:35px"></button>
-    <button id="color3" onclick="changeColor('#4f6781')" style="background-color: #4f6781;border-color:var(--text); width:35px;height:35px"></button>
-    <button id="color1" onclick="changeColor('#afbfd2')" style="background-color: #afbfd2;border-color:var(--text); width:35px;height:35px"></button>
-    <button id="color2" onclick="changeColor('#ffffff')" style="background-color: #ffffff;border-color:var(--text); width:35px;height:35px"></button>
-    <button id="color3" onclick="changeColor('#2ce8f4')" style="background-color: #2ce8f4;border-color:var(--text); width:35px;height:35px"></button>
-    <button id="color1" onclick="changeColor('#0484d1')" style="background-color: #0484d1;border-color:var(--text); width:35px;height:35px"></button>
-  </div>
+  {% include 'palettes/endesga-16.html' %} 
+  {% include 'palettes/sweetie-16.html' %} 
+  {% include 'palettes/pico-8.html' %} 
+  {% include 'palettes/matriax8c.html' %} 
+
+  <a class='helptext' href="{% url 'settings' %}#palettes"> <b>change palette</b> </a>
+
   <div id="brushes">
     <button id="size1" onclick="changeSize(10)" style="font-size: xx-small;">⬤</button>
     <button id="size2" onclick="changeSize(20)" style="font-size: small;">⬤</button>
     <button id="size3" onclick="changeSize(40)" style="font-size: medium;">⬤</button>
     <button id="size3" onclick="changeSize(80)" style="font-size: x-large;">⬤</button>
+    <button id="size3" onclick="changeColor('#FFFFFF')" style="font-size: x-large;"><i class="bi bi-eraser-fill"></i></button>
+  
   </div>
-  <button id="clear" onclick="clearCanvas()">clear canvas</button>
+
+    <div x-data="{confirmed:false}">
+      <button type="button" x-on:click="confirmed = true" x-show="!confirmed" >clear canvas</button>
+      <button onclick="clearCanvas()" x-on:click="confirmed = false" id="clear" x-show="confirmed" >are you shure?</button>
+    </div>
   <canvas id="draw" height="405px" width="720px" class="art"></canvas>
   {% load static %}
   <script src="{% static 'drawing.js' %}"></script>

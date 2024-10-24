@@ -59,3 +59,4 @@ label{
     margin-top: 1rem;
 }
 
+[x-cloak] { display: none !important; }
